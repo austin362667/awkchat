@@ -4,7 +4,7 @@ import { chat } from "./chat.ts";
 
 const option = {
   secure: true,
-  port: 444,
+  port: 443,
   // port: 80,
   certFile: "/etc/letsencrypt/live/lattemall.company/fullchain.pem",
   keyFile: "/etc/letsencrypt/live/lattemall.company/privkey.pem",
