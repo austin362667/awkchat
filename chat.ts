@@ -20,9 +20,9 @@ function getRandomInt(max:number) {
 }
 
 function generateName() {
-  const adj = ['藍色', '藍', '紅色', '紅', '黃色', '黃', '綠色', '綠', '紫色', '黑白', '黯綠', '褐', '金黃','美麗','漂亮','開開心心','怒','尷尬','時間管理','努力的','亭亭玉立','忿忿不平','嘻嘻哈哈','淺藍','閃亮','暗', '好奇', '帥氣']
+  const adj = ['藍色', '藍', '紅', '黃', '綠色', '綠', '紫色', '黑白', '黯綠', '褐', '金黃','美麗','漂亮','開開心心','怒','尷尬','時間管理','努力的','亭亭玉立','忿忿不平','嘻嘻哈哈','淺藍','閃亮','暗', '好奇', '帥氣']
   const n = ['寶寶','獨角獸','大師','打工仔','老司機','美少女','葛格','恐龍化石','小可愛','小姐姐','大學生','蟑螂','小男孩', '大美女', '北鼻','教授','帥哥','饒舌歌手','湯姆貓','米奇老鼠','小飛象','小公主','美人魚','花木蘭'] 
-  return adj[getRandomInt(adj.length)] + n[getRandomInt(n.length)];
+  return adj[getRandomInt(adj.length)] + adj[getRandomInt(adj.length)] + n[getRandomInt(n.length)];
 }
 
 export async function chat(ws: WebSocket): Promise<void> {
