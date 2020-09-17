@@ -86,17 +86,12 @@
       </form>
     </div>
   </div>
-  <script src="/socket.io/socket.io.js"></script>
+  <script src="http://localhost:443/socket.io/socket.io.js"></script>
   <script>
     // new ws connection
     // let ws = new WebSocket(`ws://${window.location.host}/ws`);
-    var connectionOptions =  {
-            "force new connection" : true,
-            "reconnectionAttempts": "Infinity", //avoid having user reconnect manually in order to prevent dead clients after a server restart
-            "timeout" : 10000, //before connect_error and connect_timeout are emitted.
-            "transports" : ["websocket"]
-        };
-    var ws = io(connectionOptions);
+    
+    var ws = io();
 
     // dom refs
     // const nameForm = document.querySelector('.name-form');
