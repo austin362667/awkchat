@@ -89,7 +89,7 @@
   
   <script>
     // new ws connection
-    let ws = new WebSocket('ws://localhost:443/ws');
+    let ws = new WebSocket(`ws://${window.location.host}/ws`);
 
     // dom refs
     const nameForm = document.querySelector('.name-form');
