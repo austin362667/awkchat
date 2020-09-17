@@ -132,8 +132,10 @@
       const { mssg } = JSON.parse(data);
       let template = `
         <li>
-          <div class='name'>${name}</div>
-          <div class='mssg'>${mssg}</div>
+          <div class='name'>${name}：
+            <div class='mssg'>${mssg}</div>
+          </div>
+          
         </li>
       `;
       chatList.innerHTML += template;
