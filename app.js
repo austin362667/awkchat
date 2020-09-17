@@ -9,7 +9,7 @@ var options = {
   cert: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')
 };
 
-var http = require('http').createServer(options, app);
+var http = https.createServer(options, app);
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
