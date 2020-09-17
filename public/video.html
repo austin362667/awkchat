@@ -127,7 +127,7 @@ var connectionOptions =  {
             "transports" : ["websocket"]
         };
 // 連線到 Server Port
-const socket = io(`https://${window.location.host}:443`);
+const socket = io(`http://${window.location.host}:443`);
 
 // 建立 P2P 連接
 function createPeerConnection() {
