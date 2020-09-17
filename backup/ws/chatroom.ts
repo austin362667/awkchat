@@ -1,5 +1,5 @@
-import { WebSocket, isWebSocketCloseEvent } from 'https://deno.land/std@0.60.0/ws/mod.ts';
-import { v4 } from 'https://deno.land/std@0.60.0/uuid/mod.ts';
+import { WebSocket, isWebSocketCloseEvent } from 'https://deno.land/std@0.61.0/ws/mod.ts';
+import { v4 } from 'https://deno.land/std@0.61.0/uuid/mod.ts';
 
 let sockets = new Map<string, WebSocket>(); 
 

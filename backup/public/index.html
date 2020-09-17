@@ -86,11 +86,10 @@
       </form>
     </div>
   </div>
-  <script src="/socket.io/socket.io.js"></script>
+  
   <script>
     // new ws connection
-    // let ws = new WebSocket(`ws://${window.location.host}/ws`);
-    var ws = io();
+    let ws = new WebSocket(`ws://${window.location.host}/ws`);
 
     // dom refs
     // const nameForm = document.querySelector('.name-form');
@@ -124,12 +123,12 @@
       e.preventDefault();
 
       let mssg = chatForm.mssg.value;
-      ws.emit('chat message', JSON.stringify({ name, mssg }));
+      ws.send(JSON.stringify({ name, mssg }));
       chatForm.reset();
     });
 
     // output event to dom
-    const outputMessage = ( data ) => {
+    const outputMessage = ({ data }) => {
       const { name, mssg } = JSON.parse(data);
       let template = `
         <li>
@@ -141,9 +140,7 @@
     };
 
     // setup listener
-    ws.on('chat message', function(msg){
-      outputMessage(msg);
-    });
+    ws.addEventListener('message', outputMessage);
   </script>
 </body>
 </html>
