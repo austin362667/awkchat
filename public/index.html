@@ -123,13 +123,13 @@
       e.preventDefault();
 
       let mssg = chatForm.mssg.value;
-      ws.send(JSON.stringify({ mssg }));
+      ws.send(JSON.stringify({ name, mssg }));
       chatForm.reset();
     });
 
     // output event to dom
     const outputMessage = ({ data }) => {
-      const { mssg } = JSON.parse(data);
+      const { name, mssg } = JSON.parse(data);
       let template = `
         <li>
           <div class='name'>${name} ： </div>
