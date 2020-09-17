@@ -4,7 +4,7 @@ var https = require('https');
 var fs = require('fs');
 
 var options = {
-  key: fs.readFileSync('etc/letsencrypt/live/lattemall.company/privkey.pem'),
+  key: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/privkey.pem'),
   ca: [fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')],
   cert: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')
 };
