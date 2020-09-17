@@ -57,10 +57,10 @@
     }
     .chat-list .name{ 
       color: #006aee;
-      font-size: 0.5rem; 
+      font-size: 0.6rem; 
       font-weight: bold; 
     }
-    .chat-list .name .mssg{ 
+    .chat-list .mssg{ 
       font-size: 0.3rem;
       margin-top: 4px;
     } 
@@ -132,10 +132,8 @@
       const { mssg } = JSON.parse(data);
       let template = `
         <li>
-          <div class='name'>${name}：
-            <p class='mssg'>${mssg}</p>
-          </div>
-          
+          <div class='name'>${name} ： </div>
+          <div class='mssg'>${mssg}</div>
         </li>
       `;
       chatList.innerHTML += template;
