@@ -19,19 +19,16 @@ const chatConnection = async (ws: WebSocket) => {
   // add new ws connection to map
   const uid = v4.generate();
   sockets.set(uid, ws);
-
+  broadcastEvent({name:'[公告]', mssg:'歡迎新用戶加入！'});
   // listen for websocket events
   for await (const ev of ws) {
     console.log(ev);
 
-    let evObj = JSON.parse(ev.toString());
-    evObj = [...evObj, evObj.mssg = "我進來了！"]
-    broadcastEvent(evObj);
-
-
     // delete socket if connection closed
     if (isWebSocketCloseEvent(ev)) {
       sockets.delete(uid);
+      broadcastEvent({name:'[公告]', mssg:'一位用戶下線了..'});
+      break;
     }
     
     // create ev object if ev is string
