@@ -1,37 +1,32 @@
-import { listenAndServe } from "https://deno.land/std@0.60.0/http/server.ts";
-import { acceptWebSocket, acceptable } from "https://deno.land/std@0.60.0/ws/mod.ts";
-import { chat } from "./chat.ts";
+import { serve } from "https://deno.land/std@0.60.0/http/server.ts";
+import { acceptWebSocket, acceptable } from 'https://deno.land/std@0.60.0/ws/mod.ts';
+import { chatConnection } from './ws/chatroom.ts';
 
-const option = {
-  secure: true,
-  port: 443,
-  // port: 80,
-  certFile: "/etc/letsencrypt/live/lattemall.company/fullchain.pem",
-  keyFile: "/etc/letsencrypt/live/lattemall.company/privkey.pem",
-}
+// server setup
+const server = serve({ port: 443 });
+console.log("http://localhost:443/");
 
-listenAndServe(option, async (req) => {
-  if (req.method === "GET" && req.url === "/") {
+for await (const req of server) {
+  
+  // serve index page
+  if (req.url === '/') {
     req.respond({
       status: 200,
-      headers: new Headers({
-        "content-type": "text/html",
-      }),
-      body: await Deno.open("./index.html"),
+      body: await Deno.open('./public/index.html')
     });
   }
 
-  // WebSockets Chat
-  if (req.method === "GET" && req.url === "/ws") {
+  // accept the websocket connection
+  if (req.url === '/ws') {
     if (acceptable(req)) {
       acceptWebSocket({
         conn: req.conn,
         bufReader: req.r,
         bufWriter: req.w,
         headers: req.headers,
-      }).then(chat);
+      })
+      .then(chatConnection);
     }
   }
-});
-
-console.log("Server running on localhost:443");
+  
+}

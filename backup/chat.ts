@@ -39,10 +39,10 @@ export async function chat(ws: WebSocket): Promise<void> {
     broadcast(message, userId);
 
     // Unregister user conection
-    if (!message || isWebSocketCloseEvent(event)) {
+    if (!message && isWebSocketCloseEvent(event)) {
       users.delete(userId);
       broadcast(`> 用戶 ${userId} 離開了..`);
-      // break;
+      break;
     }
   }
 }
