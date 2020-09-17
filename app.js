@@ -1,8 +1,15 @@
 var app = require('express')();
-var http = require('http').createServer(app);
 var io = require('socket.io')(http);
+var https = require('https');
+var fs = require('fs');
 
+var options = {
+  key: fs.readFileSync('etc/letsencrypt/live/lattemall.company/privkey.pem'),
+  ca: [fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')],
+  cert: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')
+};
 
+var http = require('http').createServer(options, app);
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
