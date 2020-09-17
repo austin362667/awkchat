@@ -1,0 +1,246 @@
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="來尬聊啊 | 清大匿名群聊" />
+  <title>來尬聊啊 | 清大匿名群聊</title>
+  <script src="https://cdn.jsdelivr.net/npm/socket.io-client@2/dist/socket.io.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body{
+      background: #eee;
+      margin: 40px;
+    }
+    body, button, input{ 
+      font-family: Inter;
+    }
+    h1{
+      text-align: center;
+      color: #444;
+      margin-bottom: 40px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #fbfbfb;
+    }
+    .container{ 
+      max-width: 960px; 
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+    }
+    .name-form, .chat-form{ 
+      display: flex; 
+      justify-content: center;
+    }
+    input{ 
+      padding: 16px; 
+      font-size: 0.5rem; 
+      margin-right: 10px; 
+      border: 1px solid #ddd; 
+      border-radius: 10px;
+    }
+    button{ 
+      font-size: 0.5rem; 
+      padding: 16px; 
+      background: #006aee; 
+      color: white; 
+      border: 0; 
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .chat-list { 
+      padding: 0;
+    }
+    .chat-list li{ 
+      margin: 16px 0; 
+      list-style-type: none; 
+    }
+    .chat-list .name{ 
+      color: #006aee;
+      font-size: 0.6rem; 
+      font-weight: bold; 
+    }
+    .chat-list .mssg{ 
+      font-size: 0.3rem;
+      margin-top: 4px;
+    } 
+    .hidden{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <button class="initialBtn">初始化</button>
+      
+  <button class="joinBtn">join room</button>
+  
+  <button class="btnCall">send offer</button>
+                           
+  <video width="200" height="200" autoplay
+    id="myVideo" muted playsinline></video>
+                              
+  <video width="500" height="500" autoplay
+    id="remoteVideo" playsinline></video>
+</div>
+</body>
+<script>
+
+const myVideo = document.querySelector('#myVideo');
+let localstream;
+
+// 初始化影像/聲音
+async function createMedia() {
+  navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia ||  navigator.webkitGetUserMedia || navigator.msGetUserMedia;
+  if(navigator.getUserMedia){
+    // 儲存本地流到全域
+    localstream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+    myVideo.srcObject = localstream;
+  }
+};
+
+// 取得裝置名稱
+function getAudioVideo ()  {
+  const video = localstream.getVideoTracks();
+  const audio = localstream.getAudioTracks();
+
+  if (video.length > 0) {
+    console.log(`使用影像裝置 => ${video[0].label}`)
+  };
+  if (audio.length > 0) {
+    console.log(`使用聲音裝置 => ${audio[0].label}`)
+  };
+}
+
+const joinBtn = document.querySelector('.joinBtn');
+let pc;
+
+// 連線到 Server Port
+const socket = io('http://localhost:443');
+
+// 建立 P2P 連接
+function createPeerConnection() {
+  const configuration = {
+    iceServers: [{
+      urls: ['stun:stun.l.google.com:19302'
+      ,'stun:stun1.l.google.com:19302'
+      ,'stun:stun2.l.google.com:19302'
+      ,'stun:stun3.l.google.com:19302'
+      ,'stun:stun4.l.google.com:19302'
+      ,'stun:stun.ekiga.net'
+      ,'stun:stun01.sipphone.com'] // Google's public STUN server
+    }]
+   };
+  pc = new RTCPeerConnection(configuration);
+  console.log(pc.signalingState)
+};
+
+// 增加本地流
+function addLocalStream() {
+  pc.addStream(localstream)
+};
+
+function joinRoom() {
+  socket.emit('joinRoom' , 'secret room');
+};
+
+joinBtn.addEventListener('click', joinRoom);
+
+const remoteVideo = document.querySelector('#remoteVideo');
+
+// 監聽 ICE Server
+function onIceCandidates() {
+  // 找尋到 ICE 候選位置後，送去 Server 與另一位配對
+  pc.onicecandidate = ({ candidate }) => {
+    if (!candidate) { return; }
+    console.log('onIceCandidate => ', candidate);
+    socket.emit("peerconnectSignaling", { candidate });
+  };
+};
+
+// 監聽 ICE 連接狀態
+function onIceconnectionStateChange() {
+  pc.oniceconnectionstatechange = (evt) => {
+    console.log('ICE 伺服器狀態變更 => ', evt.target.iceConnectionState);
+  };
+}
+
+// 監聽是否有流傳入，如果有的話就顯示影像
+function onAddStream() {
+  pc.onaddstream = (event) => {
+    if(!remoteVideo.srcObject && event.stream){
+      remoteVideo.srcObject = event.stream;
+      console.log('接收流並顯示於遠端視訊！', event);
+  }
+}
+
+const initialBtn = document.querySelector('.initialBtn');
+
+function initPeerConnection() {
+  createMedia();
+  getAudioVideo();
+  createPeerConnection();
+  addLocalStream();
+  onIceCandidates();
+  onIceconnectionStateChange();
+  onAddStream();
+}
+
+initialBtn.addEventListener('click', initPeerConnection);
+
+// Client
+socket.on('peerconnectSignaling', async ({ desc, candidate }) => {
+  // desc 指的是 Offer 與 Answer
+  // currentRemoteDescription 代表的是最近一次連線成功的相關訊息
+  if (desc && !pc.currentRemoteDescription) {
+    console.log('desc => ', desc);
+    
+    await pc.setRemoteDescription(new RTCSessionDescription(desc));
+    createSignal(desc.type === 'answer' ? true : false);
+  } else if (candidate) {
+    // 新增對方 IP 候選位置
+    console.log('candidate =>', candidate);
+    pc.addIceCandidate(new RTCIceCandidate(candidate));
+  }
+});
+
+socket.on('roomBroadcast', message => {
+  console.log('房間廣播 => ', message);
+});
+
+const btnCall = document.querySelector('.btnCall');
+let offer;
+
+const signalOption = {
+  offerToReceiveAudio: 1, // 是否傳送聲音流給對方
+  offerToReceiveVideo: 1, // 是否傳送影像流給對方
+};
+
+async function createSignal(isOffer) {
+  try {
+    if (!pc) {
+      console.log('尚未開啟視訊');
+      return;
+    }
+    // 呼叫 peerConnect 內的 createOffer / createAnswer
+    offer = await pc[`create${isOffer ? 'Offer' : 'Answer'}`](signalOption);
+
+    // 設定本地流配置
+    await pc.setLocalDescription(offer);
+    sendSignalingMessage(pc.localDescription, isOffer ? true : false)
+  } catch(err) {
+    console.log(err);
+  }
+};
+
+function sendSignalingMessage(desc, offer) {
+  const isOffer = offer ? "offer" : "answer";
+  console.log(`寄出 ${isOffer}`);
+  socket.emit("peerconnectSignaling", { desc });
+};
+
+btnCall.addEventListener('click', createSignal(true));
+
+</script>
+</html>
