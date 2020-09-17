@@ -24,6 +24,11 @@ const chatConnection = async (ws: WebSocket) => {
   for await (const ev of ws) {
     console.log(ev);
 
+    let evObj = JSON.parse(ev.toString());
+    evObj = [...evObj, evObj.mssg = "我進來了！"]
+    broadcastEvent(evObj);
+
+
     // delete socket if connection closed
     if (isWebSocketCloseEvent(ev)) {
       sockets.delete(uid);
