@@ -91,7 +91,7 @@
     // new ws connection
     // let ws = new WebSocket(`ws://${window.location.host}/ws`);
     
-    var ws = io();
+    var ws = io(`http://${window.location.host}:443`);
 
     // dom refs
     // const nameForm = document.querySelector('.name-form');
