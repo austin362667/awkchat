@@ -120,9 +120,14 @@ function getAudioVideo ()  {
 
 const joinBtn = document.querySelector('.joinBtn');
 let pc;
-
+var connectionOptions =  {
+            "force new connection" : true,
+            "reconnectionAttempts": "Infinity", //avoid having user reconnect manually in order to prevent dead clients after a server restart
+            "timeout" : 10000, //before connect_error and connect_timeout are emitted.
+            "transports" : ["websocket"]
+        };
 // 連線到 Server Port
-const socket = io(`https://${window.location.host}:443`);
+const socket = io(`https://${window.location.host}:443`, connectionOptions);
 
 // 建立 P2P 連接
 function createPeerConnection() {

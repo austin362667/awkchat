@@ -10,6 +10,7 @@ var options = {
 };
 
 var http = https.createServer(options, app);
+io.set('transports', [ 'websocket' ]);
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
