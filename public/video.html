@@ -92,12 +92,9 @@ let localstream;
 
 // 初始化影像/聲音
 async function createMedia() {
-  navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia ||  navigator.webkitGetUserMedia || navigator.msGetUserMedia;
-  if(navigator.getUserMedia){
-    // 儲存本地流到全域
-    localstream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true })
-    myVideo.srcObject = localstream;
-  }
+  // 儲存本地流到全域
+  localstream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+  myVideo.srcObject = localstream;
 };
 
 // 取得裝置名稱
@@ -172,6 +169,7 @@ function onAddStream() {
     if(!remoteVideo.srcObject && event.stream){
       remoteVideo.srcObject = event.stream;
       console.log('接收流並顯示於遠端視訊！', event);
+    }
   }
 }
 
