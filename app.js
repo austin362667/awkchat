@@ -8,9 +8,8 @@ var options = {
   ca: [fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')],
   cert: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')
 };
-
-var http = https.createServer(options, app);
-// io.set('transports', [ 'websocket' ]);
+// https.createServer(options,app);
+var http = require('http').createServer( app);
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
