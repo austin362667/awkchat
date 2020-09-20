@@ -316,7 +316,7 @@ $(function() {
    });
     
     socket.on('reconnect_error', function () {
-     log('系統自爆程序啟動');
+     log('太多人..系統不行了..');
    });
   
   

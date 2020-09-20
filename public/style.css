@@ -153,10 +153,12 @@ ul {
 }
 
 .message.typing .messageBody {
+  font-size: 0.3rem;
   color: gray;
 }
 
 .username {
+  font-size: 0.6rem;
   font-weight: 700;
   overflow: hidden;
   padding-right: 15px;
