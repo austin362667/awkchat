@@ -124,7 +124,7 @@ io.on('connection', (socket) => {
 // });
 
 // Entire gameCollection Object holds all games and info
-var gameId;
+var gameId = "";
 var gameCollection =  new function() {
 
   this.totalGameCount = 0,
