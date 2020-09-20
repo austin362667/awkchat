@@ -149,7 +149,7 @@ function buildGame(socket) {
 });
 gameId = gameObject.id
 socket.join(gameId); // join room  
-
+gameId = "";
 
 }
 
@@ -205,6 +205,7 @@ function gameSeeker (socket) {
         gameId: gameCollection.gameList[rndPick]['gameObject']['id'] });
         gameId = gameCollection.gameList[rndPick]['gameObject']['id']
       socket.join(gameId);// join room
+      gameId = "";
         console.log( socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
 
     } else {
