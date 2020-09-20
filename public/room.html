@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>來尬聊啊 | 清大匿名尬聊配對</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h5>Chatting Booth | 尬聊小站</h5>
+  <ul class="pages">
+    <li class="chat page">
+    <div class='gameButtons'>
+       <button class='joinGame' placeholder="Join Game">交朋友</button>
+       <br>
+       <button class='leaveGame' placeholder="Leave Game">換一個</button>
+       <br>
+
+    </div>
+      <div class="chatArea">
+        <ul class="messages"></ul>
+      </div>
+    <input class="inputMessage" placeholder="這裡輸入...    [TIP]說嗨就沒有然後了喔!"/>
+    </li>
+      <li class="usersList">
+    <div class="usersList">
+      <ul class="Users"></ul>
+        </div>
+    <li class="login page">
+      <div class="form">
+        <h3 class="title">大家都叫你甚麼呢？</h3>
+        <input class="usernameInput" type="text" maxlength="14" />
+      </div>
+    </li>
+  </ul>
+
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/room.js"></script>
+
+
+</body>
+</html>
