@@ -43,6 +43,7 @@ $(function() {
   
       // If the username is valid
       if (username) {
+        $inputMessage.fadeOut();
         $loginPage.fadeOut();
         $chatPage.show();
         $loginPage.off('click');
@@ -297,6 +298,9 @@ $(function() {
       console.log("Game Created! ID is: " + data.gameId)
       log(data.username + ' 開始了一場尬聊: ' + data.gameId);
       log(' 系統努力配對中，我們也討厭等待..');
+      if ( username == data.username){
+        $inputMessage.fadeIn();
+      }
       //alert("Game Created! ID is: "+ JSON.stringify(data));
     });
     
@@ -323,6 +327,7 @@ $(function() {
   
   socket.on('joinSuccess', function (data) {
     log('High Five！恭喜成功加入了一場尬聊: ' + data.gameId);
+    $inputMessage.fadeIn();
   });
   
   
@@ -334,6 +339,7 @@ $(function() {
   
   function leaveGame(){
     socket.emit('leaveGame');
+    $inputMessage.fadeOut();
   };
   
   socket.on('leftGame', function (data) {
@@ -346,7 +352,7 @@ $(function() {
   
   socket.on('gameDestroyed', function (data) { 
     log( data.gameOwner+ ' 結束了這場尬聊 ' + data.gameId);
-  
+    $inputMessage.fadeOut();
   });
   
   });
