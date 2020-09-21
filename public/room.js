@@ -267,13 +267,13 @@ $(function() {
   
     // Whenever the server emits 'user joined', log it in the chat body
     socket.on('user joined', function (data) {
-      log(data.username + ' joined');
+      log(data.username + ' 進入了大廳');
       addParticipantsMessage(data);
     });
   
     // Whenever the server emits 'user left', log it in the chat body
     socket.on('user left', function (data) {
-      log(data.username + ' left');
+      log(data.username + ' 離開了大廳');
       addParticipantsMessage(data);
       removeChatTyping(data);
   
@@ -306,12 +306,14 @@ $(function() {
     
     socket.on('disconnect', function () {
      log('抱歉..您已斷線，重開看看吧！');
+     $inputMessage.fadeOut();
    });
     
     socket.on('reconnect', function () {
      log('恭喜！！您成功回來了~');
      if (username) {
        socket.emit('add user', username);
+       $inputMessage.fadeOut();
      }
    });
     

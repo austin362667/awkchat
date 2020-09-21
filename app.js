@@ -252,14 +252,14 @@ io.on('connection', function (socket) {
 
   // when the client emits 'typing', we broadcast it to others
   socket.on('typing', function () {
-    socket.broadcast.emit('typing', {
+    socket.broadcast.in(gameId).emit('typing', {
       username: socket.username
     });
   });
 
   // when the client emits 'stop typing', we broadcast it to others
   socket.on('stop typing', function () {
-    socket.broadcast.emit('stop typing', {
+    socket.broadcast.in(gameId).emit('stop typing', {
       username: socket.username
     });
   });
@@ -291,7 +291,7 @@ io.on('connection', function (socket) {
         alreadyInGame = true;
         console.log(socket.username + " already has a Game!");
 
-        socket.emit('alreadyJoined', {
+        socket.broadcast.in(gameId).emit('alreadyJoined', {
           gameId: gameCollection.gameList[i]['gameObject']['id']
         });
 
