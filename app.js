@@ -200,11 +200,11 @@ function gameSeeker (socket) {
     var rndPick = Math.floor(Math.random() * gameCollection.totalGameCount);
     if (gameCollection.gameList[rndPick]['gameObject']['playerTwo'] == null)
     {
+      gameId = gameCollection.gameList[rndPick]['gameObject']['id']
       socket.join(gameId);// join room
       gameCollection.gameList[rndPick]['gameObject']['playerTwo'] = socket.username;
       socket.broadcast.in(gameId).emit('joinSuccess', {
         gameId: gameCollection.gameList[rndPick]['gameObject']['id'] });
-        gameId = gameCollection.gameList[rndPick]['gameObject']['id']
         console.log( socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
 
     } else {
