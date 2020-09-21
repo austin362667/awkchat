@@ -22,8 +22,8 @@ var options = {
 };
 var https = require('https')
 
-https.createServer(options,app);
-var io = require('socket.io')(https);
+const server = https.createServer(options,app);
+var io = require('socket.io')(server);
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname+'/public/index.html');
@@ -417,6 +417,6 @@ io.on('connection', function (socket) {
 //   });
 // });
 
-https.listen(443, () => {
+server.listen(443, () => {
   console.log('listening on *:443');
 });
