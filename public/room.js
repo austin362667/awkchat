@@ -330,9 +330,6 @@ $(function() {
   socket.on('joinSuccess', function (data) {
     log('High Five！配對成功！您加入了一場尬聊: ' + data.gameId);
     $inputMessage.fadeIn();
-      message =  "[自動通知] 配對成功，我進來了！";
-    // tell server to execute 'new message' and send along one parameter
-    socket.emit('new message', message);
   });
   
   
@@ -349,9 +346,6 @@ $(function() {
   
   socket.on('leftGame', function (data) {
     log('太尷尬所以離開了尬聊 ' + data.gameId);
-    message =  "[自動通知] 尬聊結束，我離開了喔！";
-    // tell server to execute 'new message' and send along one parameter
-    socket.emit('new message', message);
   });
   
   socket.on('notInGame', function () {
@@ -360,9 +354,7 @@ $(function() {
   
   socket.on('gameDestroyed', function (data) { 
     log( data.gameOwner+ ' 結束了這場尬聊 ' + data.gameId);
-    if(username === data.gameOwner){
-      $inputMessage.fadeOut();
-    }
+    $inputMessage.fadeOut();
   });
   
   });

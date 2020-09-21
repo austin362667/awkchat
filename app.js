@@ -141,12 +141,13 @@ function buildGame(socket) {
  gameObject.playerTwo = null;
  gameCollection.totalGameCount ++;
  gameCollection.gameList.push({gameObject});
- gameId = gameObject.id
+
  console.log("Game Created by "+ socket.username + " w/ " + gameObject.id);
- socket.broadcast.in(gameId).emit('gameCreated', {
+ io.emit('gameCreated', {
   username: socket.username,
   gameId: gameObject.id
 });
+gameId = gameObject.id
 socket.join(gameId); // join room 
 
 
@@ -166,14 +167,14 @@ function killGame(socket) {
       console.log("Destroy Game "+ gameId + "!");
       gameCollection.gameList.splice(i, 1);
       console.log(gameCollection.gameList);
-      socket.broadcast.in(gameId).emit('leftGame', { gameId: gameId });
-      socket.broadcast.in(gameId).emit('gameDestroyed', {gameId: gameId, gameOwner: socket.username });
+      socket.emit('leftGame', { gameId: gameId });
+      io.emit('gameDestroyed', {gameId: gameId, gameOwner: socket.username });
       notInGame = false;
     } 
     else if (plyr2Tmp == socket.username) {
       gameCollection.gameList[i]['gameObject']['playerTwo'] = null;
       console.log(socket.username + " has left " + gameId);
-      socket.broadcast.in(gameId).emit('leftGame', { gameId: gameId });
+      socket.emit('leftGame', { gameId: gameId });
       console.log(gameCollection.gameList[i]['gameObject']);
       notInGame = false;
 
@@ -199,11 +200,11 @@ function gameSeeker (socket) {
     var rndPick = Math.floor(Math.random() * gameCollection.totalGameCount);
     if (gameCollection.gameList[rndPick]['gameObject']['playerTwo'] == null)
     {
-      gameId = gameCollection.gameList[rndPick]['gameObject']['id']
-      socket.join(gameId);// join room
       gameCollection.gameList[rndPick]['gameObject']['playerTwo'] = socket.username;
-      socket.broadcast.in(gameId).emit('joinSuccess', {
+      socket.emit('joinSuccess', {
         gameId: gameCollection.gameList[rndPick]['gameObject']['id'] });
+        gameId = gameCollection.gameList[rndPick]['gameObject']['id']
+      socket.join(gameId);// join room
         console.log( socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
 
     } else {
@@ -251,14 +252,14 @@ io.on('connection', function (socket) {
 
   // when the client emits 'typing', we broadcast it to others
   socket.on('typing', function () {
-    socket.broadcast.in(gameId).emit('typing', {
+    socket.broadcast.emit('typing', {
       username: socket.username
     });
   });
 
   // when the client emits 'stop typing', we broadcast it to others
   socket.on('stop typing', function () {
-    socket.broadcast.in(gameId).emit('stop typing', {
+    socket.broadcast.emit('stop typing', {
       username: socket.username
     });
   });
@@ -290,7 +291,7 @@ io.on('connection', function (socket) {
         alreadyInGame = true;
         console.log(socket.username + " already has a Game!");
 
-        socket.broadcast.in(gameId).emit('alreadyJoined', {
+        socket.emit('alreadyJoined', {
           gameId: gameCollection.gameList[i]['gameObject']['id']
         });
 
