@@ -148,7 +148,9 @@ function buildGame(socket) {
   gameId: gameObject.id
 });
 gameId = gameObject.id
-socket.join(gameId); // join room 
+if (gameObject.playerTwo!==null){
+  socket.join(gameId); // join room 
+}
 
 
 }
