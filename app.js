@@ -145,7 +145,7 @@ function buildGame(socket) {
  console.log("Game Created by "+ socket.username + " w/ " + gameObject.id);
  gameId = gameObject.id
 socket.join(gameId); // join room 
- socket.emit('gameCreated', {
+io.to(gameId).emit('gameCreated', {
   username: socket.username,
   gameId: gameObject.id
 });
@@ -227,7 +227,7 @@ io.on('connection', function (socket) {
   socket.on('new message', function (data) {
     console.log(data);
     // we tell the client to execute 'new message'
-    socket.broadcast.in(gameId).emit('new message', {
+    io.to(gameId).emit('new message', {
       username: socket.username,
       message: data
     });
