@@ -1,7 +1,6 @@
 var express = require('express');
 var app = require('express')();
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
+
 // const redis = require("redis");
 // const path = require("path");
 
@@ -16,13 +15,15 @@ var io = require('socket.io')(http);
 var loopLimit = 0;
 // room = 0;
 // match = [];
-// var options = {
-//   key: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/privkey.pem'),
-//   ca: [fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')],
-//   cert: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')
-// };
-// https.createServer(options,app);
+var options = {
+  key: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/privkey.pem'),
+  ca: [fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')],
+  cert: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')
+};
+var https = require('https')
 
+https.createServer(options,app);
+var io = require('socket.io')(https);
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname+'/public/index.html');
