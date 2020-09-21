@@ -141,13 +141,12 @@ function buildGame(socket) {
  gameObject.playerTwo = null;
  gameCollection.totalGameCount ++;
  gameCollection.gameList.push({gameObject});
-
+ gameId = gameObject.id
  console.log("Game Created by "+ socket.username + " w/ " + gameObject.id);
  socket.broadcast.in(gameId).emit('gameCreated', {
   username: socket.username,
   gameId: gameObject.id
 });
-gameId = gameObject.id
 socket.join(gameId); // join room 
 
 
