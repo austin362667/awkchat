@@ -144,7 +144,6 @@ function buildGame(socket) {
 
  console.log("Game Created by "+ socket.username + " w/ " + gameObject.id);
  gameId = gameObject.id
-socket.join(gameId); // join room 
  io.sockets.in(gameId).emit('gameCreated', {
   username: socket.username,
   gameId: gameObject.id
@@ -195,6 +194,7 @@ function gameSeeker (socket) {
   if (( gameCollection.totalGameCount == 0) || (loopLimit >= 20)) {
 
     buildGame(socket);
+    socket.join(gameId); // join room 
     loopLimit = 0;
 
   } else {
@@ -205,7 +205,7 @@ function gameSeeker (socket) {
       socket.emit('joinSuccess', {
         gameId: gameCollection.gameList[rndPick]['gameObject']['id'] });
         gameId = gameCollection.gameList[rndPick]['gameObject']['id']
-      // socket.join(gameId);// join room
+        socket.join(gameId);// join room
         console.log( socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
 
     } else {
