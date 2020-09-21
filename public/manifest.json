@@ -1,5 +1,5 @@
 {
-    "short_name": "Chatting Booth|尬聊小站",
+    "short_name": "Chatting Booth | 尬聊小站",
     "name": "尬聊小站 | 喜歡就聊，不喜歡就跳過！",
     "icons": [
         {
@@ -10,6 +10,6 @@
     ],
     "start_url": "./room",
     "display": "standalone",
-    "theme_color": "#ff6200",
-    "background_color": "#ffc29c"
+    "theme_color": "#e600ff",
+    "background_color": "#ff6200"
 }
