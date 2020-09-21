@@ -1,6 +1,6 @@
 var express = require('express');
 var app = require('express')();
-var fs = require('fs')();
+var fs = require('fs');
 // const redis = require("redis");
 // const path = require("path");
 
