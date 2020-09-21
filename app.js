@@ -169,7 +169,7 @@ function killGame(socket) {
       gameCollection.gameList.splice(i, 1);
       console.log(gameCollection.gameList);
       socket.emit('leftGame', { gameId: gameId });
-      io.emit('gameDestroyed', {gameId: gameId, gameOwner: socket.username });
+      socket.emit('gameDestroyed', {gameId: gameId, gameOwner: socket.username });
       notInGame = false;
     } 
     else if (plyr2Tmp == socket.username) {
