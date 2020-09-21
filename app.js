@@ -143,7 +143,7 @@ function buildGame(socket) {
  gameCollection.gameList.push({gameObject});
 
  console.log("Game Created by "+ socket.username + " w/ " + gameObject.id);
- io.emit('gameCreated', {
+ socket.broadcast.in(gameId).emit('gameCreated', {
   username: socket.username,
   gameId: gameObject.id
 });
@@ -200,11 +200,11 @@ function gameSeeker (socket) {
     var rndPick = Math.floor(Math.random() * gameCollection.totalGameCount);
     if (gameCollection.gameList[rndPick]['gameObject']['playerTwo'] == null)
     {
+      socket.join(gameId);// join room
       gameCollection.gameList[rndPick]['gameObject']['playerTwo'] = socket.username;
-      socket.emit('joinSuccess', {
+      socket.broadcast.in(gameId).emit('joinSuccess', {
         gameId: gameCollection.gameList[rndPick]['gameObject']['id'] });
         gameId = gameCollection.gameList[rndPick]['gameObject']['id']
-      socket.join(gameId);// join room
         console.log( socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
 
     } else {
