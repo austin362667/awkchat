@@ -330,7 +330,7 @@ $(function() {
   socket.on('joinSuccess', function (data) {
     log('High Five！配對成功！您加入了一場尬聊: ' + data.gameId);
     $inputMessage.fadeIn();
-      message =  "[房間通知] 配對成功，對方進來了！";
+      message =  "[自動通知] 配對成功，我進來了！";
     // tell server to execute 'new message' and send along one parameter
     socket.emit('new message', message);
   });
