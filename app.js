@@ -281,14 +281,31 @@ io.on('connection', function (socket) {
 
   // when the client emits 'typing', we broadcast it to others
   socket.on('typing', function () {
-    socket.broadcast.emit('typing', {
+    let room;
+    for(el of dict){
+    console.log(socket.username, el);
+
+      if(socket.username === el['key']){
+        room = el['value'];
+      }
+    }
+    socket.in(room).broadcast.emit('typing', {
       username: socket.username
     });
   });
 
   // when the client emits 'stop typing', we broadcast it to others
   socket.on('stop typing', function () {
-    socket.broadcast.emit('stop typing', {
+
+    let room;
+    for(el of dict){
+    console.log(socket.username, el);
+
+      if(socket.username === el['key']){
+        room = el['value'];
+      }
+    }
+    socket.in(room).broadcast.emit('stop typing', {
       username: socket.username
     });
   });
@@ -346,7 +363,7 @@ io.on('connection', function (socket) {
   
         if(socket.username === el['key']){
           socket.leave(el['value']);
-          
+
           el['key'] = null;
           el['value'] = null;
         }
