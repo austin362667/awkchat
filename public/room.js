@@ -349,6 +349,9 @@ $(function() {
   
   socket.on('leftGame', function (data) {
     log('太尷尬所以離開了尬聊 ' + data.gameId);
+    message =  "[自動通知] 尬聊結束，我離開了喔！";
+    // tell server to execute 'new message' and send along one parameter
+    socket.emit('new message', message);
   });
   
   socket.on('notInGame', function () {
