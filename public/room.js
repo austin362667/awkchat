@@ -32,7 +32,7 @@ $(function() {
       if (data.numUsers === 1) {
         message += "目前沒有人在線上，轉傳網址邀請好友上來玩！";
       } else {
-        message += "這裡有 " + data.numUsers + "  位用戶在等待配對，按開始->交朋友！";
+        message += "這裡有 " + data.numUsers + "  位用戶在等待配對，按開始->開始！";
       }
       log(message);
     }
@@ -260,6 +260,7 @@ $(function() {
   
     // Whenever the server emits 'new message', update the chat body
     socket.on('new message', function (data) {
+      console.log(data);
       addChatMessage(data);
     });
   
@@ -296,7 +297,7 @@ $(function() {
   
     socket.on('gameCreated', function (data) {
       console.log("Game Created! ID is: " + data.gameId)
-      log(data.username + ' 開始了一場尬聊: ' + data.gameId);
+      log(data.username + ' 發起了一場尬聊: ' + data.gameId);
       log(' 系統努力配對中，我們也討厭等待..');
       if ( username == data.username){
         $inputMessage.fadeIn();
@@ -335,7 +336,7 @@ $(function() {
   
   //Response from Server on existing User found in a game
   socket.on('alreadyJoined', function (data) {
-    log('您已經在尬聊中了，對方太無趣嗎?那->換一個');
+    log('您已經在尬聊中了，對方太無趣嗎?那->離開');
   });
   
   
@@ -349,7 +350,7 @@ $(function() {
   });
   
   socket.on('notInGame', function () {
-    log('您還沒開始新的尬聊->交朋友');
+    log('您還沒開始新的尬聊->開始');
   });
   
   socket.on('gameDestroyed', function (data) { 

@@ -124,7 +124,9 @@ io.on('connection', (socket) => {
 // });
 
 // Entire gameCollection Object holds all games and info
-var gameId = "";
+var dict = []; // create an empty array
+
+
 var gameCollection =  new function() {
 
   this.totalGameCount = 0,
@@ -143,9 +145,13 @@ function buildGame(socket) {
  gameCollection.gameList.push({gameObject});
 
  console.log("Game Created by "+ socket.username + " w/ " + gameObject.id);
- gameId = gameObject.id
-socket.join(gameId); // join room 
- io.sockets.in(gameId).emit('gameCreated', {
+//  gameId = gameObject.id
+socket.join(gameObject.id); // join room 
+dict.push({
+  key:   socket.username,
+  value: gameObject.id
+});
+ io.sockets.in(gameObject.id).emit('gameCreated', {
   username: socket.username,
   gameId: gameObject.id
 });
@@ -181,6 +187,16 @@ function killGame(socket) {
 
     } 
 
+    for(el of dict){
+      console.log(socket.username, el);
+  
+        if(socket.username === el['key']){
+          socket.leave(el['value']);
+
+          el['key'] = null;
+          el['value'] = null;
+        }
+      }
   }
 
   if (notInGame == true){
@@ -204,8 +220,11 @@ function gameSeeker (socket) {
       gameCollection.gameList[rndPick]['gameObject']['playerTwo'] = socket.username;
       socket.emit('joinSuccess', {
         gameId: gameCollection.gameList[rndPick]['gameObject']['id'] });
-        gameId = gameCollection.gameList[rndPick]['gameObject']['id']
-      socket.join(gameId);// join room
+        dict.push({
+          key:   socket.username,
+          value: gameCollection.gameList[rndPick]['gameObject']['id']
+        });
+      socket.join(gameCollection.gameList[rndPick]['gameObject']['id']);// join room
         console.log( socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
 
     } else {
@@ -222,12 +241,21 @@ var numUsers = 0;
 
 io.on('connection', function (socket) {
   var addedUser = false;
-
   // when the client emits 'new message', this listens and executes
   socket.on('new message', function (data) {
+    
     console.log(data);
+    console.log("dict", dict);
+    let room;
+    for(el of dict){
+    console.log(socket.username, el);
+
+      if(socket.username === el['key']){
+        room = el['value'];
+      }
+    }
     // we tell the client to execute 'new message'
-    socket.broadcast.in(gameId).emit('new message', {
+    socket.in(room).broadcast.emit('new message', {
       username: socket.username,
       message: data
     });
@@ -281,6 +309,7 @@ io.on('connection', function (socket) {
 
 
   socket.on('joinGame', function (){
+    // console.log(rooms);
     console.log(socket.username + " wants to join a game");
 
     var alreadyInGame = false;
@@ -295,6 +324,7 @@ io.on('connection', function (socket) {
         socket.emit('alreadyJoined', {
           gameId: gameCollection.gameList[i]['gameObject']['id']
         });
+        break;
 
       }
 
@@ -311,7 +341,16 @@ io.on('connection', function (socket) {
 
   socket.on('leaveGame', function() {
 
-
+    for(el of dict){
+      console.log(socket.username, el);
+  
+        if(socket.username === el['key']){
+          socket.leave(el['value']);
+          
+          el['key'] = null;
+          el['value'] = null;
+        }
+      }
     if (gameCollection.totalGameCount == 0){
      socket.emit('notInGame');
      
