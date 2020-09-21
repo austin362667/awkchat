@@ -145,7 +145,7 @@ function buildGame(socket) {
  console.log("Game Created by "+ socket.username + " w/ " + gameObject.id);
  gameId = gameObject.id
 socket.join(gameId); // join room 
-io.to(gameId).emit('gameCreated', {
+ io.sockets.in(gameId).emit('gameCreated', {
   username: socket.username,
   gameId: gameObject.id
 });
@@ -205,7 +205,7 @@ function gameSeeker (socket) {
       socket.emit('joinSuccess', {
         gameId: gameCollection.gameList[rndPick]['gameObject']['id'] });
         gameId = gameCollection.gameList[rndPick]['gameObject']['id']
-      socket.join(gameId);// join room
+      // socket.join(gameId);// join room
         console.log( socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
 
     } else {
@@ -227,7 +227,7 @@ io.on('connection', function (socket) {
   socket.on('new message', function (data) {
     console.log(data);
     // we tell the client to execute 'new message'
-    io.to(gameId).emit('new message', {
+    socket.broadcast.in(gameId).emit('new message', {
       username: socket.username,
       message: data
     });
