@@ -145,7 +145,7 @@ function buildGame(socket) {
  console.log("Game Created by "+ socket.username + " w/ " + gameObject.id);
  gameId = gameObject.id
 socket.join(gameId); // join room 
- io.sockets.in(gameId).emit('gameCreated', {
+ socket.emit('gameCreated', {
   username: socket.username,
   gameId: gameObject.id
 });
