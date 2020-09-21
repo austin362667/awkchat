@@ -300,6 +300,7 @@ $(function() {
       log(' 系統努力配對中，我們也討厭等待..');
       if ( username == data.username){
         $inputMessage.fadeIn();
+        socket.join(data.gameId); // join room 
       }
       //alert("Game Created! ID is: "+ JSON.stringify(data));
     });
@@ -341,7 +342,7 @@ $(function() {
   
   function leaveGame(){
     socket.emit('leaveGame');
-    $inputMessage.fadeOut();
+    // $inputMessage.fadeOut();
   };
   
   socket.on('leftGame', function (data) {
