@@ -357,7 +357,9 @@ $(function() {
   
   socket.on('gameDestroyed', function (data) { 
     log( data.gameOwner+ ' 結束了這場尬聊 ' + data.gameId);
-    $inputMessage.fadeOut();
+    if(username === data.gameOwner){
+      $inputMessage.fadeOut();
+    }
   });
   
   });
