@@ -188,7 +188,7 @@ function killGame(socket) {
     } 
 
     for(el of dict){
-      console.log(socket.username, el);
+      // console.log(socket.username, el);
   
         if(socket.username === el['key']){
           socket.leave(el['value']);
@@ -244,16 +244,17 @@ io.on('connection', function (socket) {
   // when the client emits 'new message', this listens and executes
   socket.on('new message', function (data) {
     
-    console.log(data);
-    console.log("dict", dict);
+    // console.log("dict", dict);
     let room;
     for(el of dict){
-    console.log(socket.username, el);
+    // console.log(socket.username, el);
 
       if(socket.username === el['key']){
         room = el['value'];
       }
     }
+    console.log(room,'-',socket.username,': ',data);
+
     // we tell the client to execute 'new message'
     socket.in(room).broadcast.emit('new message', {
       username: socket.username,
@@ -283,7 +284,7 @@ io.on('connection', function (socket) {
   socket.on('typing', function () {
     let room;
     for(el of dict){
-    console.log(socket.username, el);
+    // console.log(socket.username, el);
 
       if(socket.username === el['key']){
         room = el['value'];
@@ -299,7 +300,7 @@ io.on('connection', function (socket) {
 
     let room;
     for(el of dict){
-    console.log(socket.username, el);
+    // console.log(socket.username, el);
 
       if(socket.username === el['key']){
         room = el['value'];
@@ -359,7 +360,7 @@ io.on('connection', function (socket) {
   socket.on('leaveGame', function() {
 
     for(el of dict){
-      console.log(socket.username, el);
+      // console.log(socket.username, el);
   
         if(socket.username === el['key']){
           socket.leave(el['value']);
