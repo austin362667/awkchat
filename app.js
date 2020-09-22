@@ -235,7 +235,7 @@ function gameSeeker (socket) {
         }
       }
       
-      socket.in(room).broadcast.emit('joinSuccess', {
+      socket.broadcast.emit('joinSuccess', {
         gameId: gameCollection.gameList[rndPick]['gameObject']['id'] });
 console.log( socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
 
