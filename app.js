@@ -219,6 +219,13 @@ function gameSeeker (socket) {
     if (gameCollection.gameList[rndPick]['gameObject']['playerTwo'] == null)
     {
       gameCollection.gameList[rndPick]['gameObject']['playerTwo'] = socket.username;
+      dict.push({
+        key:   socket.username,
+        value: gameCollection.gameList[rndPick]['gameObject']['id']
+      });
+    socket.join(gameCollection.gameList[rndPick]['gameObject']['id']);// join room
+      
+      
       let room;
       for(el of dict){
       // console.log(socket.username, el);
@@ -227,14 +234,10 @@ function gameSeeker (socket) {
           room = el['value'];
         }
       }
+      
       socket.in(room).broadcast.emit('joinSuccess', {
         gameId: gameCollection.gameList[rndPick]['gameObject']['id'] });
-        dict.push({
-          key:   socket.username,
-          value: gameCollection.gameList[rndPick]['gameObject']['id']
-        });
-      socket.join(gameCollection.gameList[rndPick]['gameObject']['id']);// join room
-        console.log( socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
+console.log( socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
 
     } else {
 
