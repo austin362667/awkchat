@@ -347,10 +347,12 @@ $(function() {
   
   socket.on('leftGame', function (data) {
     log('太尷尬所以離開了尬聊 ' + data.gameId);
+    $inputMessage.fadeOut();
   });
   
   socket.on('notInGame', function () {
     log('您還沒開始新的尬聊->開始');
+    
   });
   
   socket.on('gameDestroyed', function (data) { 
