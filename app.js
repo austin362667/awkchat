@@ -219,6 +219,14 @@ function gameSeeker (socket) {
     if (gameCollection.gameList[rndPick]['gameObject']['playerTwo'] == null)
     {
       gameCollection.gameList[rndPick]['gameObject']['playerTwo'] = socket.username;
+      let room;
+      for(el of dict){
+      // console.log(socket.username, el);
+  
+        if(socket.username === el['key']){
+          room = el['value'];
+        }
+      }
       socket.in(room).broadcast.emit('joinSuccess', {
         gameId: gameCollection.gameList[rndPick]['gameObject']['id'] });
         dict.push({
