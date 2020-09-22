@@ -175,14 +175,14 @@ function killGame(socket) {
       console.log("Destroy Game "+ gameId + "!");
       gameCollection.gameList.splice(i, 1);
       console.log(gameCollection.gameList);
-      socket.in(gameId).broadcast.emit('leftGame', { gameId: gameId });
-      socket.in(gameId).broadcast.emit('gameDestroyed', {gameId: gameId, gameOwner: socket.username });
+      socket.emit('leftGame', { gameId: gameId });
+      socket.emit('gameDestroyed', {gameId: gameId, gameOwner: socket.username });
       notInGame = false;
     } 
     else if (plyr2Tmp == socket.username) {
       gameCollection.gameList[i]['gameObject']['playerTwo'] = null;
       console.log(socket.username + " has left " + gameId);
-      socket.in(gameId).broadcast.emit('leftGame', { gameId: gameId });
+      socket.emit('leftGame', { gameId: gameId });
       console.log(gameCollection.gameList[i]['gameObject']);
       notInGame = false;
 
@@ -219,25 +219,14 @@ function gameSeeker (socket) {
     if (gameCollection.gameList[rndPick]['gameObject']['playerTwo'] == null)
     {
       gameCollection.gameList[rndPick]['gameObject']['playerTwo'] = socket.username;
-      dict.push({
-        key:   socket.username,
-        value: gameCollection.gameList[rndPick]['gameObject']['id']
-      });
-    socket.join(gameCollection.gameList[rndPick]['gameObject']['id']);// join room
-      
-      
-      let room;
-      for(el of dict){
-      // console.log(socket.username, el);
-  
-        if(socket.username === el['key']){
-          room = el['value'];
-        }
-      }
-      
       socket.emit('joinSuccess', {
         gameId: gameCollection.gameList[rndPick]['gameObject']['id'] });
-console.log( socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
+        dict.push({
+          key:   socket.username,
+          value: gameCollection.gameList[rndPick]['gameObject']['id']
+        });
+      socket.join(gameCollection.gameList[rndPick]['gameObject']['id']);// join room
+        console.log( socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
 
     } else {
 
