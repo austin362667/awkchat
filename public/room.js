@@ -32,7 +32,7 @@ $(function() {
       if (data.numUsers === 1) {
         message += "目前沒有人在線上，轉傳網址邀請好友上來玩！";
       } else {
-        message += "這裡有 " + data.numUsers + "  位用戶在等待配對，按開始->開始！";
+        message += "這裡有 " + data.numUsers + "  位用戶在線上，按開始->開始！";
       }
       log(message);
     }
