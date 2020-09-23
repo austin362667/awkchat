@@ -10,14 +10,22 @@ html {
 }
 
 .gameButtons {
-
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
   position: absolute;
   right: 0px;
 }
 
 
 .joinGame, .leaveGame {
-/* http://css3buttongenerator.com/ */
+/* background-color: inherit; */
+float: left;
+/* border: none; */
+outline: none;
+cursor: pointer;
+/* padding: 14px 16px; */
+transition: 0.3s;
 
   background: #000000;
   background-image: -webkit-linear-gradient(top, #000000, #303233);

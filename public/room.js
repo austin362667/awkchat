@@ -30,9 +30,9 @@ $(function() {
     function addParticipantsMessage (data) {
       var message = '';
       if (data.numUsers === 1) {
-        message += "目前沒有人在線上，轉傳網址邀請好友上來玩！";
+        message += "請按下->進入 開始配對!";//"目前沒有人在線上，轉傳網址邀請好友上來玩！"
       } else {
-        message += "這裡有 " + data.numUsers + "  位用戶在線上，按開始->開始！";
+        message += "這裡有 " + data.numUsers + "  位用戶在線上，按->進入 開始配對！";
       }
       log(message);
     }
@@ -351,7 +351,7 @@ $(function() {
   });
   
   socket.on('notInGame', function () {
-    log('您還沒開始新的尬聊->開始');
+    log('您還沒開始新的尬聊->進入');
     
   });
   
