@@ -133,6 +133,9 @@ ul {
 /* Font */
 
 .messages {
+  border: hidden;
+  border-radius: 10%;
+  box-shadow: #303233;
   font-size: 150%;
 }
 
