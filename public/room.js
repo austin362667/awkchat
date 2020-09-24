@@ -346,7 +346,7 @@ $(function() {
   };
   
   socket.on('joinSuccess', function (data) {
-    log('High Five！配對成功！您加入了一場尬聊: ' + data.gameId);
+    log('High Five！配對成功！您加入了一場尬聊 ' + data.gameId);
     $inputMessage.fadeIn();
     $inputMessageBtn.fadeIn();
   });
