@@ -361,6 +361,8 @@ $(function() {
   function leaveGame(){
     socket.emit('leaveGame');
     log('太尷尬所以離開了')
+    $inputMessage.fadeOut();
+    $inputMessageBtn.fadeOut();
     // $inputMessage.fadeOut();
   };
   
