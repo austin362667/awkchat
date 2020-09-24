@@ -12,6 +12,7 @@ $(function() {
     var $usernameInput = $('.usernameInput'); // Input for username
     var $messages = $('.messages'); // Messages area
     var $inputMessage = $('.inputMessage'); // Input message input box
+    var $inputMessageBtn = $('.inputMessageBtn'); 
   
     var $loginPage = $('.login.page'); // The login page
     var $chatPage = $('.chat.page'); // The chatroom page
@@ -44,6 +45,7 @@ $(function() {
       // If the username is valid
       if (username) {
         $inputMessage.fadeOut();
+        $inputMessageBtn.fadeOut();
         $loginPage.fadeOut();
         $chatPage.show();
         $loginPage.off('click');
@@ -221,6 +223,17 @@ $(function() {
     $inputMessage.on('input', function() {
       updateTyping();
     });
+
+    $inputMessageBtn.click(function () {
+      if (username) {
+        sendMessage();
+        socket.emit('stop typing');
+        typing = false;
+      } else {
+        setUsername();
+      }
+    });
+  
   
     // Click events
   
@@ -301,6 +314,7 @@ $(function() {
       log(' 系統努力配對中，我們也討厭等待..');
       if ( username == data.username){
         $inputMessage.fadeIn();
+        $inputMessageBtn.fadeIn();
       }
       //alert("Game Created! ID is: "+ JSON.stringify(data));
     });
@@ -308,6 +322,8 @@ $(function() {
     socket.on('disconnect', function () {
      log('抱歉..您已斷線，重開看看吧！');
      $inputMessage.fadeOut();
+     $inputMessageBtn.fadeOut();
+
    });
     
     socket.on('reconnect', function () {
@@ -315,6 +331,7 @@ $(function() {
      if (username) {
        socket.emit('add user', username);
        $inputMessage.fadeOut();
+       $inputMessageBtn.fadeOut();
      }
    });
     
@@ -331,6 +348,7 @@ $(function() {
   socket.on('joinSuccess', function (data) {
     log('High Five！配對成功！您加入了一場尬聊: ' + data.gameId);
     $inputMessage.fadeIn();
+    $inputMessageBtn.fadeIn();
   });
   
   
@@ -348,6 +366,7 @@ $(function() {
   socket.on('leftGame', function (data) {
     log('太尷尬所以離開了尬聊 ' + data.gameId);
     $inputMessage.fadeOut();
+    $inputMessageBtn.fadeOut();
   });
   
   socket.on('notInGame', function () {
