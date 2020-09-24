@@ -219,7 +219,7 @@ function gameSeeker (socket) {
     if (gameCollection.gameList[rndPick]['gameObject']['playerTwo'] == null)
     {
       gameCollection.gameList[rndPick]['gameObject']['playerTwo'] = socket.username;
-      socket.emit('joinSuccess', {
+      socket.in(gameCollection.gameList[rndPick]['gameObject']['id']).broadcast.emit('joinSuccess', {
         gameId: gameCollection.gameList[rndPick]['gameObject']['id'] });
         dict.push({
           key:   socket.username,
