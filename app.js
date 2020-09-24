@@ -175,14 +175,14 @@ function killGame(socket) {
       console.log("Destroy Game "+ gameId + "!");
       gameCollection.gameList.splice(i, 1);
       console.log(gameCollection.gameList);
-      socket.in(gameId).broadcast.emit('leftGame', { gameId: gameId });
-      socket.in(gameId).broadcast.emit('gameDestroyed', {gameId: gameId, gameOwner: socket.username });
+      io.sockets.in(gameId).emit('leftGame', { gameId: gameId });
+      io.sockets.in(gameId).emit('gameDestroyed', {gameId: gameId, gameOwner: socket.username });
       notInGame = false;
     } 
     else if (plyr2Tmp == socket.username) {
       gameCollection.gameList[i]['gameObject']['playerTwo'] = null;
       console.log(socket.username + " has left " + gameId);
-      socket.in(gameId).broadcast.emit('leftGame', { gameId: gameId });
+      io.sockets.in(gameId).emit('leftGame', { gameId: gameId });
       console.log(gameCollection.gameList[i]['gameObject']);
       notInGame = false;
 
