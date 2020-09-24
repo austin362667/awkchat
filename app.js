@@ -182,7 +182,7 @@ function killGame(socket) {
     else if (plyr2Tmp == socket.username) {
       gameCollection.gameList[i]['gameObject']['playerTwo'] = null;
       console.log(socket.username + " has left " + gameId);
-      io.sockets.in(gameId).emit('leftGame', { gameId: gameId });
+      io.sockets.in(gameId).emit('leftGame', { gameId: gameId , username: socket.username});
       console.log(gameCollection.gameList[i]['gameObject']);
       notInGame = false;
 
