@@ -170,8 +170,25 @@ ul {
   padding-bottom: 60px;
 }
 
-.inputArea{
-  display: flex;
+.chat-form{ 
+  display: flex; 
+  justify-content: center;
+}
+input{ 
+  padding: 16px; 
+  font-size: 0.5rem; 
+  margin-right: 10px; 
+  border: 1px solid #ddd; 
+  border-radius: 10px;
+}
+button{ 
+  font-size: 0.5rem; 
+  padding: 16px; 
+  background: #006aee; 
+  color: white; 
+  border: 0; 
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .messages {
