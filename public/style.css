@@ -221,7 +221,7 @@ input{
   width: 90%;
 }
 button{ 
-  font-size: 0.5rem; 
+  font-size: 90%; 
   padding: 16px; 
   background: #000000; 
   color: white; 
