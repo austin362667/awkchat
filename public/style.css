@@ -202,11 +202,11 @@ ul {
   right: 0;
   width: 90%;
 } */
-.sticky {
+/* .sticky {
   position: fixed;
-  bottom: 0;
+  bottom: ;
   width: 100%;
-}
+} */
 .chat-form{ 
   display: flex; 
   justify-content: center;
