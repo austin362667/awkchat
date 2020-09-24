@@ -175,7 +175,7 @@ function killGame(socket) {
       console.log("Destroy Game "+ gameId + "!");
       gameCollection.gameList.splice(i, 1);
       console.log(gameCollection.gameList);
-      io.sockets.in(gameId).emit('leftGame', { gameId: gameId });
+      io.sockets.in(gameId).emit('leftGame', { gameId: gameId , username: socket.username});
       io.sockets.in(gameId).emit('gameDestroyed', {gameId: gameId, gameOwner: socket.username });
       notInGame = false;
     } 

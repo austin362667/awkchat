@@ -310,7 +310,7 @@ $(function() {
   
     socket.on('gameCreated', function (data) {
       console.log("Game Created! ID is: " + data.gameId)
-      log(data.username + ' 發起了一場尬聊: ' + data.gameId);
+      log(data.username + ' 發起了一場尬聊 ' + data.gameId);
       log(' 系統努力配對中，我們也討厭等待..');
       if ( username == data.username){
         $inputMessage.fadeIn();
@@ -364,7 +364,11 @@ $(function() {
   };
   
   socket.on('leftGame', function (data) {
-    log('太尷尬所以離開了尬聊 ' + data.gameId);
+    if(username === data.username){
+      log('太尷尬所以離開了尬聊 ' + data.gameId);
+    }else{
+      log('對方離開了尬聊 ' + data.gameId);
+    }
     $inputMessage.fadeOut();
     $inputMessageBtn.fadeOut();
   });
