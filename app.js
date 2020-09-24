@@ -224,15 +224,7 @@ function gameSeeker (socket) {
         key:   socket.username,
         value: gameCollection.gameList[rndPick]['gameObject']['id']
       });
-      let room;
-      for(el of dict){
-      // console.log(socket.username, el);
-  
-        if(socket.username === el['key']){
-          room = el['value'];
-        }
-      }
-      socket.in(room).broadcast.emit.emit('joinSuccess', {
+      io.sockets.in(gameCollection.gameList[rndPick]['gameObject']['id']).emit('joinSuccess', {
         gameId: gameCollection.gameList[rndPick]['gameObject']['id'] });
 
         console.log( socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
