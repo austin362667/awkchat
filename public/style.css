@@ -148,13 +148,12 @@ ul {
   box-shadow: #303233;
   font-size: 150%;
 }
-
+/* 
 .inputMessage {
-  position: fixed;
   left: 0;
   bottom: 0;
   font-size: 100%;
-}
+} */
 
 .log {
   color: gray;
@@ -207,6 +206,7 @@ ul {
 .chat-form{ 
   display: flex; 
   justify-content: center;
+  position: fixed;
 }
 input{ 
   padding: 16px; 
