@@ -354,7 +354,7 @@ $(function() {
   
   //Response from Server on existing User found in a game
   socket.on('alreadyJoined', function (data) {
-    log('您已經在尬聊中了，對方太無趣嗎?那->離開');
+    log('您已經在尬聊中了，重新配對先按->離開');
   });
   
   
@@ -370,7 +370,7 @@ $(function() {
   });
   
   socket.on('notInGame', function () {
-    log('您還沒開始新的尬聊->進入');
+    log('您還沒開始新的尬聊，按->進入');
     
   });
   
