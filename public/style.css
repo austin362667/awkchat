@@ -170,26 +170,7 @@ ul {
   padding-bottom: 60px;
 }
 
-.chat-form{ 
-  display: flex; 
-  justify-content: center;
-}
-input{ 
-  padding: 16px; 
-  font-size: 0.5rem; 
-  margin-right: 10px; 
-  border: 1px solid #ddd; 
-  border-radius: 10px;
-}
-button{ 
-  font-size: 0.5rem; 
-  padding: 16px; 
-  background: #006aee; 
-  color: white; 
-  border: 0; 
-  border-radius: 10px;
-  cursor: pointer;
-}
+
 
 .messages {
   height: 100%;
@@ -211,7 +192,7 @@ button{
 
 /* Input */
 
-.inputMessage {
+/* .inputMessage {
   border: 10px solid #000;
   bottom: 0;
   height: 60px;
@@ -221,4 +202,25 @@ button{
   position: absolute;
   right: 0;
   width: 90%;
+} */
+
+.chat-form{ 
+  display: flex; 
+  justify-content: center;
+}
+input{ 
+  padding: 16px; 
+  font-size: 0.5rem; 
+  margin-right: 10px; 
+  border: 1px solid #ddd; 
+  border-radius: 10px;
+}
+button{ 
+  font-size: 0.5rem; 
+  padding: 16px; 
+  background: #006aee; 
+  color: white; 
+  border: 0; 
+  border-radius: 10px;
+  cursor: pointer;
 }
