@@ -364,10 +364,10 @@ $(function() {
   };
   
   socket.on('leftGame', function (data) {
+    log('太尷尬所以離開了尬聊 ' + data.gameId);
     if(username === data.username){
-      log('太尷尬所以離開了尬聊 ' + data.gameId);
-    }else{
       log('對方離開了尬聊 ' + data.gameId);
+    }else{
     }
     $inputMessage.fadeOut();
     $inputMessageBtn.fadeOut();
