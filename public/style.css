@@ -178,13 +178,14 @@ ul {
 
 .inputArea li {
   float: left;
-}
-
-.inputArea li a {
   display: block;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+}
+
+.inputArea li button{
+  width: 10%;
 }
 
 .messages {
