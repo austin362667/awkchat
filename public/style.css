@@ -214,14 +214,14 @@ ul {
 }
 input{ 
   padding: 16px; 
-  font-size: 0.5rem; 
+  font-size: 90%; 
   margin-right: 10px; 
   border: 1px solid #ddd; 
   border-radius: 10px;
   width: 90%;
 }
 button{ 
-  font-size: 90%; 
+  font-size: 100%; 
   padding: 16px; 
   background: #000000; 
   color: white; 
