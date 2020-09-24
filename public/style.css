@@ -219,6 +219,7 @@ input{
   border: 1px solid #ddd; 
   border-radius: 10px;
   width: 90%;
+  height: 80%;
 }
 button{ 
   font-size: 100%; 
