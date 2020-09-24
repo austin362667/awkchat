@@ -170,6 +170,11 @@ ul {
   padding-bottom: 60px;
 }
 
+.inputArea{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
 
 .messages {
   height: 100%;
