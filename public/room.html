@@ -32,10 +32,10 @@
       <div class="chatArea">
         <ul class="messages"></ul>
       </div>
-      <form class="chat-form">
+      <div class="chat-form" id="chat-form">
         <input class="inputMessage" type="text" placeholder="輸入訊息.." required>
         <button>發送</button>
-      </form>
+      </div>
       <!-- <div class="inputArea">
         <input class="inputMessage" placeholder="這裡輸入...    [TIP]說嗨就沒有然後了喔!"/>
         <button type="submit" class="btn" style="float: right;">Send</button>
@@ -57,7 +57,23 @@
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="/room.js"></script>
-
+<script>// When the user scrolls the page, execute myFunction
+  window.onscroll = function() {myFunction()};
+  
+  // Get the navbar
+  var navbar = document.getElementById("chat-form");
+  
+  // Get the offset position of the navbar
+  var sticky = navbar.offsetTop;
+  
+  // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+  function myFunction() {
+    if (window.pageYOffset >= sticky) {
+      navbar.classList.add("sticky")
+    } else {
+      navbar.classList.remove("sticky");
+    }
+  }</script>
 
 </body>
 <footer>

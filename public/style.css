@@ -166,7 +166,7 @@ ul {
 
 .chatArea {
   height: 100%;
-  padding-bottom: 60px;
+  /* padding-bottom: 60px; */
 }
 
 
@@ -202,11 +202,15 @@ ul {
   right: 0;
   width: 90%;
 } */
-
+.sticky {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
 .chat-form{ 
   display: flex; 
   justify-content: center;
-  position: fixed;
+  /* position: fixed; */
 }
 input{ 
   padding: 16px; 
