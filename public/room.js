@@ -33,7 +33,7 @@ $(function() {
       if (data.numUsers === 1) {
         message += "請按下->進入 開始配對!";//"目前沒有人在線上，轉傳網址邀請好友上來玩！"
       } else {
-        message += "這裡有 " + data.numUsers + "  位用戶在線上，按->進入 開始配對！";
+        message += "這裡有 2" + data.numUsers + "  位用戶在線上，按->進入 開始配對！";
       }
       log(message);
     }
@@ -306,16 +306,53 @@ $(function() {
     });
   
   
+
+    function alert_1() {
+      log(' 我們也討厭等待，連線倒數25秒..');
+    }
+
+
+    function alert_20() {
+      log(' 別離開!就快到了，連線倒數20秒..');
+    }
+
+    function alert_10() {
+      log(' 系統努力配對中，連線倒數10秒..');
+    }
+
+    function alert_5() {
+      log(' 哎呀!終於剩5秒..');
+    }
+
+    function alert_0() {
+      log(' Sorry!您落單了..大家都已配對成功。');
+      log('再等等看吧!')
+    }
   
-  
+    var timeoutID_1;
+    var timeoutID_2;
+    var timeoutID_3;
+    var timeoutID_4;
+    var timeoutID_5;
     socket.on('gameCreated', function (data) {
+      timeoutID_1 = setTimeout(alert_1, 1000);
+      timeoutID_2 = setTimeout(alert_20, 7000);
+      timeoutID_3 = setTimeout(alert_10, 12000);
+      timeoutID_4 = setTimeout(alert_5, 22000);
+      timeoutID_5 = setTimeout(alert_0, 27000);
       console.log("Game Created! ID is: " + data.gameId)
       log(data.username + ' 發起了一場尬聊 ' + data.gameId);
-      log(' 系統努力配對中，我們也討厭等待..');
+      // log(' 系統努力配對中，我們也討厭等待..');
+      timeoutID_1();
+      timeoutID_2();
+      timeoutID_3();
+      timeoutID_4();
+      timeoutID_5();
       if ( username == data.username){
         $inputMessage.fadeIn();
         $inputMessageBtn.fadeIn();
       }
+
       //alert("Game Created! ID is: "+ JSON.stringify(data));
     });
     
@@ -347,6 +384,11 @@ $(function() {
   
   socket.on('joinSuccess', function (data) {
     log('High Five！配對成功！您加入了一場尬聊 ' + data.gameId);
+    clearTimeout(timeoutID_1);
+    clearTimeout(timeoutID_2);
+    clearTimeout(timeoutID_3);
+    clearTimeout(timeoutID_4);
+    clearTimeout(timeoutID_5);
     $inputMessage.fadeIn();
     $inputMessageBtn.fadeIn();
   });
@@ -361,6 +403,7 @@ $(function() {
   function leaveGame(){
     socket.emit('leaveGame');
     log('太尷尬所以離開了')
+    log('轉傳連結給更多好友吧! https://lattemall.company/room')
     $inputMessage.fadeOut();
     $inputMessageBtn.fadeOut();
     // $inputMessage.fadeOut();
