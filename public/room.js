@@ -403,6 +403,11 @@ $(function() {
   
   function leaveGame(){
     socket.emit('leaveGame');
+    clearTimeout(timeoutID_1);
+    clearTimeout(timeoutID_2);
+    clearTimeout(timeoutID_3);
+    clearTimeout(timeoutID_4);
+    clearTimeout(timeoutID_5);
     log('太尷尬所以離開了')
     log('轉傳連結給更多好友吧! https://lattemall.company/room')
     $inputMessage.fadeOut();
