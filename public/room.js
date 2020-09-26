@@ -33,7 +33,7 @@ $(function() {
       if (data.numUsers === 1) {
         message += "請按下->進入 開始配對!";//"目前沒有人在線上，轉傳網址邀請好友上來玩！"
       } else {
-        message += "這裡有 2" + data.numUsers + "  位用戶在線上，按->進入 開始配對！";
+        message += "這裡有 1" + data.numUsers + "  位用戶在線上，按->進入 開始配對！";
       }
       log(message);
     }
