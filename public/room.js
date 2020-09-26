@@ -13,6 +13,7 @@ $(function() {
     var $messages = $('.messages'); // Messages area
     var $inputMessage = $('.inputMessage'); // Input message input box
     var $inputMessageBtn = $('.inputMessageBtn'); 
+    var $enterBtn = $('.enterBtn'); 
   
     var $loginPage = $('.login.page'); // The login page
     var $chatPage = $('.chat.page'); // The chatroom page
@@ -203,6 +204,16 @@ $(function() {
       return COLORS[index];
     }
   
+    $enterBtn.click(function () {
+
+      if (username) {
+        sendMessage();
+        socket.emit('stop typing');
+        typing = false;
+      } else {
+        setUsername();
+      }
+  });
     // Keyboard events
   
     $window.keydown(function (event) {
@@ -220,6 +231,7 @@ $(function() {
           setUsername();
         }
       }
+
     });
   
     $inputMessage.on('input', function() {
@@ -347,11 +359,6 @@ $(function() {
       if ( username == data.username){
         log(data.username + ' 發起了一場尬聊 ' + data.gameId);
         // log(' 系統努力配對中，我們也討厭等待..');
-        timeoutID_1();
-        timeoutID_2();
-        timeoutID_3();
-        timeoutID_4();
-        timeoutID_5();
         $inputMessage.fadeIn();
         $inputMessageBtn.fadeIn();
       }

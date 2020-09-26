@@ -186,8 +186,8 @@ ul {
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   background-color: white;
   
-  padding: 15px;
-  margin: 25px;
+  padding: 10px;
+  margin: 20px;
 }
 
 .messageBody {
@@ -255,7 +255,7 @@ input{
   border: 1px solid #ddd; 
   border-radius: 10px;
   width: 100%;
-  height: 80%;
+  height: 90%;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
