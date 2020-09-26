@@ -385,6 +385,7 @@ $(function() {
   
   socket.on('joinSuccess', function (data) {
     log('High Five！配對成功！您加入了一場尬聊 ' + data.gameId);
+    log('您已進入1對1聊天室!');
     clearTimeout(timeoutID_1);
     clearTimeout(timeoutID_2);
     clearTimeout(timeoutID_3);
