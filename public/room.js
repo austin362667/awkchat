@@ -341,14 +341,15 @@ $(function() {
       timeoutID_4 = setTimeout(alert_5, 22000);
       timeoutID_5 = setTimeout(alert_0, 27000);
       console.log("Game Created! ID is: " + data.gameId)
-      log(data.username + ' 發起了一場尬聊 ' + data.gameId);
-      // log(' 系統努力配對中，我們也討厭等待..');
-      timeoutID_1();
-      timeoutID_2();
-      timeoutID_3();
-      timeoutID_4();
-      timeoutID_5();
+
       if ( username == data.username){
+        log(data.username + ' 發起了一場尬聊 ' + data.gameId);
+        // log(' 系統努力配對中，我們也討厭等待..');
+        timeoutID_1();
+        timeoutID_2();
+        timeoutID_3();
+        timeoutID_4();
+        timeoutID_5();
         $inputMessage.fadeIn();
         $inputMessageBtn.fadeIn();
       }
