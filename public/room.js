@@ -96,12 +96,14 @@ $(function() {
         options.fade = false;
         $typingMessages.remove();
       }
-  
+      
+      let color = getUsernameColor(data.username);
       var $usernameDiv = $('<span class="username"/>')
       .text(data.username)
-      .css('color', getUsernameColor(data.username));
+      .css('color', color);
       var $messageBodyDiv = $('<span class="messageBody">')
       .text(data.message);
+      // $messageBodyDiv.css('background-color', color);
   
       var typingClass = data.typing ? 'typing' : '';
       var $messageDiv = $('<li class="message"/>')
