@@ -1,6 +1,7 @@
 var express = require('express');
 var app = require('express')();
 var fs = require('fs');
+var enforce = require('express-sslify');
 // const redis = require("redis");
 // const path = require("path");
 
@@ -22,7 +23,7 @@ var options = {
   cert: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')
 };
 var https = require('https')
-const server = https.createServer(options,app);
+const server = enforce.https.createServer(options,app);
 
 // var http = require('http')
 // const server = http.createServer(app);

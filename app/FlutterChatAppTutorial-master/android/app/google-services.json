@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "463158808443",
+    "firebase_url": "https://awkchat-d6439.firebaseio.com",
+    "project_id": "awkchat-d6439",
+    "storage_bucket": "awkchat-d6439.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463158808443:android:7297409264ec2cc5adb7de",
+        "android_client_info": {
+          "package_name": "com.AustinCapital.ChattingBooth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "463158808443-e4hdo2btpqqkgnkj34kd90583ijbsuqj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.AustinCapital.ChattingBooth",
+            "certificate_hash": "3d284dd0b425417a4c0f2ef99ef63f18cac66508"
+          }
+        },
+        {
+          "client_id": "463158808443-b0nmkfg7rje23715l78mgfmrrje1gco8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQl7kard0qrNJCotH5n-KWI0s4CDJtDSQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "463158808443-b0nmkfg7rje23715l78mgfmrrje1gco8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
