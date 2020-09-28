@@ -33,6 +33,8 @@ app.get('*', function(req, res) {
   if(!req.secure){
   res.redirect('https://' + req.headers.host + req.url);
 
+  }else{
+    next();
   }
   // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
   // res.redirect('https://example.com' + req.url);
