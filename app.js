@@ -31,11 +31,10 @@ var io = require('socket.io')(server);
 
 app.get('*', function(req, res, next) {  
   if(!req.secure){
-  res.redirect('https://' + req.headers.host + req.url);
+  res.redirect('https://lattemall.company/room');
 
-  }else{
-    next();
   }
+    next();
   // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
   // res.redirect('https://example.com' + req.url);
 })
