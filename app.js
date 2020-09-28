@@ -29,15 +29,12 @@ const server = https.createServer(options,app);
 // const server = http.createServer(app);
 var io = require('socket.io')(server);
 
-app.get('*', function(req, res, next) {  
-  if(!req.secure){
-  res.redirect('https://lattemall.company/room');
-
+app.use(function(req, res, next) {
+  if(!req.secure) {
+    return res.redirect(['https://', req.get('Host'), req.url].join(''));
   }
-    next();
-  // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
-  // res.redirect('https://example.com' + req.url);
-})
+  next();
+});
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname+'/public/index.html');
