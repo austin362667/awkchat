@@ -29,7 +29,7 @@ const server = https.createServer(options,app);
 // const server = http.createServer(app);
 var io = require('socket.io')(server);
 
-app.get('*', function(req, res) {  
+app.get('*', function(req, res, next) {  
   if(!req.secure){
   res.redirect('https://' + req.headers.host + req.url);
 
