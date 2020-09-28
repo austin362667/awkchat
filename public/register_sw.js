@@ -5,9 +5,9 @@ if ('serviceWorker' in navigator) {
         console.log('[Service Worker] Registration succeeded. Scope is ' + reg.scope);
         if ('Notification' in window) {
           console.log('Notification permission default status:', Notification.permission);
-          Notification.requestPermission(function (status) {
-            console.log('Notification permission status:', status);
-          });
+          // Notification.requestPermission(function (status) {
+          //   console.log('Notification permission status:', status);
+          // });
         }
       }).catch(error => {
         // registration failed
