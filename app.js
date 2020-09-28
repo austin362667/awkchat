@@ -1,7 +1,7 @@
 var express = require('express');
 var app = require('express')();
 var fs = require('fs');
-var enforce = require('express-sslify');
+// var enforce = require('express-sslify');
 // const redis = require("redis");
 // const path = require("path");
 
@@ -23,11 +23,18 @@ var options = {
   cert: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')
 };
 var https = require('https')
-const server = enforce.https.createServer(options,app);
+const server = https.createServer(options,app);
 
 // var http = require('http')
 // const server = http.createServer(app);
 var io = require('socket.io')(server);
+
+app.get('*', function(req, res) {  
+  res.redirect('https://' + req.headers.host + req.url);
+
+  // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
+  // res.redirect('https://example.com' + req.url);
+})
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname+'/public/index.html');
