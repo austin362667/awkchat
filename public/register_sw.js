@@ -15,15 +15,15 @@ if ('serviceWorker' in navigator) {
       });
   }
 
-  function displayNotification() {
-    if (Notification.permission == 'granted') {
-      navigator.serviceWorker.getRegistration().then(reg => {
-        var options = {
-          icon: './logo.png',
-          body: '歡迎加入 Chatting Booth | 尬聊小站',
-        };
-        reg.showNotification('Chatting Booth | 尬聊小站', options);
-        console.log('displayNotification');
-      });
-    }
-  }
+  // function displayNotification() {
+  //   if (Notification.permission == 'granted') {
+  //     navigator.serviceWorker.getRegistration().then(reg => {
+  //       var options = {
+  //         icon: './logo.png',
+  //         body: '歡迎加入 Chatting Booth | 尬聊小站',
+  //       };
+  //       reg.showNotification('Chatting Booth | 尬聊小站', options);
+  //       console.log('displayNotification');
+  //     });
+  //   }
+  // }
