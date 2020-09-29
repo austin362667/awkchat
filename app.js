@@ -27,7 +27,17 @@ const server = https.createServer(options,app);
 
 // var http = require('http')
 // const server = http.createServer(app);
+
 var io = require('socket.io')(server);
+
+const db = require('./queries')
+
+app.get('/users', db.getUsers)
+app.get('/users/:id', db.getUserById)
+app.post('/users', db.createUser)
+app.put('/users/:id', db.updateUser)
+app.delete('/users/:id', db.deleteUser)
+
 
 app.use(function(req, res, next) {
   if(!req.secure) {
@@ -46,6 +56,10 @@ app.get('/room', (req, res) => {
 
 app.get('/match', (req, res) => {
   res.sendFile(__dirname+'/public/room.html');
+});
+
+app.get('/users/sign_up', (req, res) => {
+  res.sendFile(__dirname+'/public/sign_up.html');
 });
 
 // app.post('/match', async (req, res) => {
