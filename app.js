@@ -41,6 +41,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/room', (req, res) => {
+  return res.redirect('https://lattemall.company');
+});
+
+app.get('/match', (req, res) => {
   res.sendFile(__dirname+'/public/room.html');
 });
 
