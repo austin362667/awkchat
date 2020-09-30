@@ -34,7 +34,7 @@ $(function() {
       if (data.numUsers === 1) {
         message += "請按下->進入 開始配對!";//"目前沒有人在線上，轉傳網址邀請好友上來玩！"
       } else {
-        message += "剛剛有 " + data.numUsers + "0+  位用戶配對成功，按->進入 開始配對！";
+        message += "剛剛有 " + data.numUsers + "+  對用戶配對成功，按->進入 開始配對！";
       }
       log(message);
     }
