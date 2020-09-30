@@ -33,7 +33,7 @@
       <div class="chatArea">
         <ul class="messages"></ul>
       </div>
-      <div class="chat-form" id="chat-form">
+      <div class="chat-form sticky" id="chat-form">
         <input class="inputMessage" type="text" placeholder="輸入訊息.." required>
         <!-- <button class="inputMessageBtn">發送</button> -->
       </div>
@@ -70,13 +70,13 @@ var header = document.getElementById("chat-form");
 var sticky = header.offsetTop;
 
 // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
-function myFunction() {
-  if (window.pageYOffset > sticky) {
-    header.classList.add("sticky");
-  } else {
-    header.classList.remove("sticky");
-  }
-}
+// function myFunction() {
+//   if (window.pageYOffset > sticky) {
+//     header.classList.add("sticky");
+//   } else {
+//     header.classList.remove("sticky");
+//   }
+// }
 </script>
 <script src="./register_sw.js"></script>
 <script src="./sw.js"></script>
