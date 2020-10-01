@@ -1,33 +1,65 @@
+var FADE_TIME = 150; // ms
+var TYPING_TIMER_LENGTH = 400; // ms
+var COLORS = [
+'#e21400', '#91580f', '#f8a700', '#f78b00',
+'#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
+'#3b88eb', '#3824aa', '#a700ff', '#d300e7'
+];
+
+// Initialize variables
+var $window = $(window);
+// var $usernameInput = $('.usernameInput'); // Input for username
+var $messages = $('.messages'); // Messages area
+var $inputMessage = $('.ip-msg'); // Input message input box
+var $inputMessageBtn = $('.inputMessageBtn'); 
+// var $enterBtn = $('.enterBtn'); 
+
+// var $loginPage = $('.login.page'); // The login page
+var $chatPage = $('.chat.page'); // The chatroom page
+var $joinGame = $('.joinGame'); 
+var $leaveGame = $('.leaveGame'); 
+
+// Prompt for setting a username
+var connected = false;
+var typing = false;
+var lastTypingTime;
+
+
+
+
+var socket = io();
+var username;
+
+
+function joinGame(){
+  socket.emit('joinGame');
+};
+
+    // Sets the client's username
+    function setUsername () {
+      // username = cleanInput($usernameInput.val().trim());
+  
+      // If the username is valid
+      if (username) {
+        console.log(username)
+        // $inputMessage.fadeOut();
+        // $inputMessageBtn.fadeOut();
+        // $loginPage.fadeOut();
+        $chatPage.show();
+        // $loginPage.off('click');
+        $currentInput = $inputMessage.focus();
+  
+        // Tell the server your username
+        socket.emit('add user', username);
+        
+      }
+    }
+
 $(function() {
-    var FADE_TIME = 150; // ms
-    var TYPING_TIMER_LENGTH = 400; // ms
-    var COLORS = [
-    '#e21400', '#91580f', '#f8a700', '#f78b00',
-    '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
-    '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
-    ];
+
+    // var $currentInput = $usernameInput.focus();
   
-    // Initialize variables
-    var $window = $(window);
-    var $usernameInput = $('.usernameInput'); // Input for username
-    var $messages = $('.messages'); // Messages area
-    var $inputMessage = $('.inputMessage'); // Input message input box
-    var $inputMessageBtn = $('.inputMessageBtn'); 
-    var $enterBtn = $('.enterBtn'); 
-  
-    var $loginPage = $('.login.page'); // The login page
-    var $chatPage = $('.chat.page'); // The chatroom page
-    var $joinGame = $('.joinGame'); 
-    var $leaveGame = $('.leaveGame'); 
-  
-    // Prompt for setting a username
-    var username;
-    var connected = false;
-    var typing = false;
-    var lastTypingTime;
-    var $currentInput = $usernameInput.focus();
-  
-    var socket = io();
+
   
     function addParticipantsMessage (data) {
       var message = '';
@@ -36,27 +68,10 @@ $(function() {
       } else {
         message += "剛剛有 " + data.numUsers + "0+  位用戶配對成功，按->進入 開始配對！";
       }
-      log(message);
+      // log(message);
     }
   
-    // Sets the client's username
-    function setUsername () {
-      username = cleanInput($usernameInput.val().trim());
-  
-      // If the username is valid
-      if (username) {
-        $inputMessage.fadeOut();
-        $inputMessageBtn.fadeOut();
-        $loginPage.fadeOut();
-        $chatPage.show();
-        $loginPage.off('click');
-        $currentInput = $inputMessage.focus();
-  
-        // Tell the server your username
-        socket.emit('add user', username);
-        
-      }
-    }
+
   
     // Sends a chat message
     function sendMessage () {
@@ -204,16 +219,16 @@ $(function() {
       return COLORS[index];
     }
   
-    $enterBtn.click(function () {
+  //   $enterBtn.click(function () {
 
-      if (username) {
-        sendMessage();
-        socket.emit('stop typing');
-        typing = false;
-      } else {
-        setUsername();
-      }
-  });
+  //     if (username) {
+  //       sendMessage();
+  //       socket.emit('stop typing');
+  //       typing = false;
+  //     } else {
+  //       setUsername();
+  //     }
+  // });
     // Keyboard events
   
     $window.keydown(function (event) {
@@ -252,9 +267,9 @@ $(function() {
     // Click events
   
     // Focus input when clicking anywhere on login page
-    $loginPage.click(function () {
-      $currentInput.focus();
-    });
+    // $loginPage.click(function () {
+    //   $currentInput.focus();
+    // });
   
     // Focus input when clicking on the message input's border
     $inputMessage.click(function () {
@@ -263,12 +278,13 @@ $(function() {
   
   
     $joinGame.click(function () {
+      leaveGame();
       joinGame();
   
     })
   
     $leaveGame.click(function () {
-      leaveGame();
+      // leaveGame();
   
     })
   
@@ -282,7 +298,8 @@ $(function() {
       log(message, {
         prepend: true
       });
-      addParticipantsMessage(data);
+      log("重新配對按右下方 X ")
+      // addParticipantsMessage(data);
     });
   
     // Whenever the server emits 'new message', update the chat body
@@ -295,14 +312,14 @@ $(function() {
   
     // Whenever the server emits 'user joined', log it in the chat body
     socket.on('user joined', function (data) {
-      log(data.username + ' 進入了大廳');
-      addParticipantsMessage(data);
+      // log(data.username + ' 進入了大廳');
+      // addParticipantsMessage(data);
     });
   
     // Whenever the server emits 'user left', log it in the chat body
     socket.on('user left', function (data) {
-      log(data.username + ' 離開了大廳');
-      addParticipantsMessage(data);
+      // log(data.username + ' 離開了大廳');
+      // addParticipantsMessage(data);
       removeChatTyping(data);
   
   
@@ -369,7 +386,7 @@ $(function() {
     socket.on('disconnect', function () {
      log('抱歉..您已斷線，重開看看吧！');
      $inputMessage.fadeOut();
-     $inputMessageBtn.fadeOut();
+    //  $inputMessageBtn.fadeOut();
 
    });
     
@@ -377,8 +394,8 @@ $(function() {
      log('恭喜！！您成功回來了~');
      if (username) {
        socket.emit('add user', username);
-       $inputMessage.fadeOut();
-       $inputMessageBtn.fadeOut();
+      //  $inputMessage.fadeOut();
+      //  $inputMessageBtn.fadeOut();
      }
    });
     
@@ -388,13 +405,11 @@ $(function() {
   
   
   //Join into an Existing Game
-  function joinGame(){
-    socket.emit('joinGame');
-  };
+
   
   socket.on('joinSuccess', function (data) {
     log('High Five！配對成功！您加入了一場尬聊 ' + data.gameId);
-    log('您已進入1對1聊天室!');
+    log('您已進入1對1加密聊天室!');
     clearTimeout(timeoutID_1);
     clearTimeout(timeoutID_2);
     clearTimeout(timeoutID_3);
@@ -407,7 +422,7 @@ $(function() {
   
   //Response from Server on existing User found in a game
   socket.on('alreadyJoined', function (data) {
-    log('您已經在尬聊中了，重新配對先按->離開');
+    // log('您已經在尬聊中了，重新配對先按->離開');
   });
   
   
@@ -419,9 +434,9 @@ $(function() {
     clearTimeout(timeoutID_4);
     clearTimeout(timeoutID_5);
     log('太尷尬所以離開了')
-    log('轉傳連結給更多好友吧! https://lattemall.company/room')
-    $inputMessage.fadeOut();
-    $inputMessageBtn.fadeOut();
+    log('轉傳連結給更多好友吧! 搜尋關鍵字：匿名尬聊')
+    // $inputMessage.fadeOut();
+    // $inputMessageBtn.fadeOut();
     // $inputMessage.fadeOut();
   };
   
@@ -431,18 +446,38 @@ $(function() {
     }else{
       log('對方離開了尬聊 ' + data.gameId);
     }
-    $inputMessage.fadeOut();
-    $inputMessageBtn.fadeOut();
+    // $inputMessage.fadeOut();
+    // $inputMessageBtn.fadeOut();
   });
   
   socket.on('notInGame', function () {
-    log('您還沒開始新的尬聊，按->進入');
+    // log('您還沒開始新的尬聊，按->進入');
     
   });
   
   socket.on('gameDestroyed', function (data) { 
     log( data.gameOwner+ ' 結束了這場尬聊 ' + data.gameId);
-    $inputMessage.fadeOut();
+    // $inputMessage.fadeOut();
   });
   
   });
+
+
+
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
+  function generateName() {
+    const adj = ['水藍', '寶藍', '多喝水', '緋紅', '黃色', '釉綠', '粉紅', '淡紫', '黑白', '黯綠', '褐', '金黃','美麗','漂亮','開開心心','怒','尷尬','時間管理','努力的','亭亭玉立','忿忿不平','嘻嘻哈哈','淺藍','閃亮','暗', '好奇', '帥氣']
+    const n = ['寶寶','獨角獸','大師','打工仔','老司機','美少女','葛格','恐龍化石','小可愛','小姐姐','大學生','蟑螂','小男孩', '大美女', '北鼻','教授','帥哥','饒舌歌手','湯姆貓','米奇老鼠','小飛象','小公主','美人魚','花木蘭'] 
+    return adj[getRandomInt(adj.length)] + adj[getRandomInt(adj.length)] + n[getRandomInt(n.length)];
+  }
+  // name
+window.onload = function() {
+  
+username = generateName();
+    setUsername();
+    joinGame();
+
+}

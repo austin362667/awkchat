@@ -17,16 +17,16 @@ var loopLimit = 0;
 // room = 0;
 // match = [];
 
-var options = {
-  key: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/privkey.pem'),
-  ca: [fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')],
-  cert: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')
-};
-var https = require('https')
-const server = https.createServer(options,app);
+// var options = {
+//   key: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/privkey.pem'),
+//   ca: [fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')],
+//   cert: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')
+// };
+// var https = require('https')
+// const server = https.createServer(options,app);
 
-// var http = require('http')
-// const server = http.createServer(app);
+var http = require('http')
+const server = http.createServer(app);
 
 var io = require('socket.io')(server);
 
@@ -39,12 +39,12 @@ app.put('/users/:id', db.updateUser)
 app.delete('/users/:id', db.deleteUser)
 
 
-app.use(function(req, res, next) {
-  if(!req.secure) {
-    return res.redirect(['https://', req.get('Host'), req.url].join(''));
-  }
-  next();
-});
+// app.use(function(req, res, next) {
+//   if(!req.secure) {
+//     return res.redirect(['https://', req.get('Host'), req.url].join(''));
+//   }
+//   next();
+// });
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname+'/public/index.html');
@@ -178,7 +178,7 @@ function buildGame(socket) {
 //  gameId = gameObject.id
 socket.join(gameObject.id); // join room 
 dict.push({
-  key:   socket.username,
+  key:   socket.id,
   value: gameObject.id
 });
  io.sockets.in(gameObject.id).emit('gameCreated', {
@@ -220,7 +220,7 @@ function killGame(socket) {
     for(el of dict){
       // console.log(socket.username, el);
   
-        if(socket.username === el['key']){
+        if(socket.id === el['key']){
           socket.leave(el['value']);
 
           el['key'] = null;
@@ -250,7 +250,7 @@ function gameSeeker (socket) {
       gameCollection.gameList[rndPick]['gameObject']['playerTwo'] = socket.username;
       socket.join(gameCollection.gameList[rndPick]['gameObject']['id']);// join room
       dict.push({
-        key:   socket.username,
+        key:   socket.id,
         value: gameCollection.gameList[rndPick]['gameObject']['id']
       });
       io.sockets.in(gameCollection.gameList[rndPick]['gameObject']['id']).emit('joinSuccess', {
@@ -280,7 +280,7 @@ io.on('connection', function (socket) {
     for(el of dict){
     // console.log(socket.username, el);
 
-      if(socket.username === el['key']){
+      if(socket.id === el['key']){
         room = el['value'];
       }
     }
@@ -317,7 +317,7 @@ io.on('connection', function (socket) {
     for(el of dict){
     // console.log(socket.username, el);
 
-      if(socket.username === el['key']){
+      if(socket.id === el['key']){
         room = el['value'];
       }
     }
@@ -333,7 +333,7 @@ io.on('connection', function (socket) {
     for(el of dict){
     // console.log(socket.username, el);
 
-      if(socket.username === el['key']){
+      if(socket.id === el['key']){
         room = el['value'];
       }
     }
@@ -393,7 +393,7 @@ io.on('connection', function (socket) {
     for(el of dict){
       // console.log(socket.username, el);
   
-        if(socket.username === el['key']){
+        if(socket.id === el['key']){
           socket.leave(el['value']);
 
           el['key'] = null;

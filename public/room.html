@@ -18,23 +18,32 @@
   <meta name="theme-color" content="#e600ff">
   <link rel="apple-touch-icon" href="./logo.png" />
 <link rel="manifest" href="./manifest.json"/>
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <h5>Chatting Booth | 尬聊小站</h5>
+
+<body">
+  <!-- <h5>Chatting Booth | 尬聊小站</h5> -->
   <ul class="pages">
     <li class="chat page">
-    <div class='gameButtons'>
+    <!-- <div class='gameButtons'>
        <button class='joinGame' placeholder="Join Game">進入</button>
        <br>
        <button class='leaveGame' placeholder="Leave Game">離開</button>
        <br>
-    </div>
+    </div> -->
       <div class="chatArea">
         <ul class="messages"></ul>
       </div>
       <div class="chat-form sticky" id="chat-form">
-        <input class="inputMessage" type="text" placeholder="輸入訊息.." required>
+        <div class="msg-box">
+          <input type="text" class="ip-msg" placeholder="type something.." />
+          <span class="btn-group">
+            <i class="fa fa-paper-plane inputMessageBtn"></i>
+            <i class="fa fa-times joinGame"></i>
+          </span>
+        </div>
+        <!-- <input class="inputMessage" type="text" placeholder="輸入訊息.." required> -->
         <!-- <button class="inputMessageBtn">發送</button> -->
       </div>
       <!-- <div class="inputArea">
@@ -47,13 +56,13 @@
     <div class="usersList">
       <ul class="Users"></ul>
         </div>
-    <li class="login page">
+    <!-- <li class="login page">
       <div class="form">
         <h3 class="title">大家都叫你甚麼呢？</h3>
         <input class="usernameInput" type="text" maxlength="14" />
         <button class="enterBtn">進入</button>
       </div>
-    </li>
+    </li> -->
   </ul>
 
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -81,10 +90,10 @@ var sticky = header.offsetTop;
 <script src="./register_sw.js"></script>
 <script src="./sw.js"></script>
 <noscript>Ooops!您好像沒有啟用javascript.</noscript>
+
 </body>
-<footer>
+<!-- <footer>
   <p>an <a href="https://www.instagram.com/astn.0820_/ " target="_blank" style="text-decoration:none;">Austin Liu</a> Production</p>
   <p>Chatting Booth © 2020</p>
-  <!-- A footer for the page. -->
-</footer>
+</footer> -->
 </html>
