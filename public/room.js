@@ -445,6 +445,7 @@ $(function() {
       // log('太尷尬所以離開了尬聊 ' + data.gameId);
     }else{
       log('對方離開了尬聊 ' + data.gameId);
+      log('會遇到的人會再相遇~')
     }
     // $inputMessage.fadeOut();
     // $inputMessageBtn.fadeOut();

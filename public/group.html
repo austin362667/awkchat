@@ -18,8 +18,8 @@
 </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no ">
-  <meta name="description" content="來尬聊啊 | 清大匿名群聊" />
-  <title>來尬聊啊 | 清大匿名群聊</title>
+  <meta name="description" content="來尬聊啊 | 清交匿名群聊" />
+  <title>中秋來烤肉 | 清交人團圓</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     body{
@@ -29,7 +29,7 @@
     body, button, input{ 
       font-family: Inter;
     }
-    p{text-align: center;font-family: Inter;}
+    p{text-align: center;font-family: Inter;font-size: small;}
     h1{
       text-align: center;
       color: #444;
@@ -40,26 +40,28 @@
     .container{ 
       max-width: 960px; 
       margin: 0 auto;
-      background: white;
+      /* background: white; */
       padding: 30px;
       border-radius: 10px;
-      border: 1px solid #ddd;
+      /* border: 1px solid #ddd; */
     }
     .name-form, .chat-form{ 
-      display: flex; 
-      justify-content: center;
+      /* display: flex;  */
+      /* float: left; */
+      /* justify-content: center; */
     }
     input{ 
       padding: 16px; 
       font-size: 0.5rem; 
       margin-right: 10px; 
-      border: 1px solid #ddd; 
+      /* border: 1px solid #ddd; 
+       */
       border-radius: 10px;
     }
     button{ 
       font-size: 0.5rem; 
       padding: 16px; 
-      background: #006aee; 
+      background: #9100a1; 
       color: white; 
       border: 0; 
       border-radius: 10px;
@@ -73,22 +75,50 @@
       list-style-type: none; 
     }
     .chat-list .name{ 
-      color: #006aee;
-      font-size: 0.6rem; 
+      color: #9100a1;
+      font-size: 0.2rem; 
       font-weight: bold; 
     }
     .chat-list .mssg{ 
-      font-size: 0.3rem;
+      color: white;
+      /* font-size: 0.6rem; */
       margin-top: 4px;
     } 
     .hidden{
       display: none;
     }
+
+    .glow {
+  font-size:x-large;
+  color: #fff;
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+  }
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+}
+.sticky {
+  position: fixed;
+  bottom: 0;
+  width: 100%
+}
+body{background:black;}
+.container{background: black;}
   </style>
 </head>
 <body>
   <div class="container">
-    <h1> 清 大 尬 聊 </h1>
+    <!-- <div class="centered"> -->
+    <h1 class="glow"> 清 交 線 上 烤 肉 </h1>
+    <!-- </div> -->
 
     <!-- <form class="name-form">
       <input type="text" name="nickname" placeholder="取個暱稱.."" required>
@@ -97,8 +127,8 @@
 
     <div class="chatroom">
       <ul class="chat-list"></ul>
-      <form class="chat-form">
-        <input type="text" name="mssg" placeholder="輸入訊息.." required>
+      <form class="chat-form sticky">
+        <input type="text" name="mssg" placeholder="樓上的幫我倒杯汽水.." required autocomplete="off">
         <button>發送</button>
       </form>
     </div>
@@ -121,8 +151,8 @@
     }
 
     function generateName() {
-      const adj = ['水藍', '寶藍', '多喝水', '紅', '黃', '釉綠', '粉紅', '淡紫', '黑白', '黯綠', '褐', '金黃','美麗','漂亮','開開心心','怒','尷尬','時間管理','努力的','亭亭玉立','忿忿不平','嘻嘻哈哈','淺藍','閃亮','暗', '好奇', '帥氣']
-      const n = ['寶寶','獨角獸','大師','打工仔','老司機','美少女','葛格','恐龍化石','小可愛','小姐姐','大學生','蟑螂','小男孩', '大美女', '北鼻','教授','帥哥','饒舌歌手','湯姆貓','米奇老鼠','小飛象','小公主','美人魚','花木蘭'] 
+      const adj = ['水藍', '寶藍', '多喝水', '緋紅', '黃色', '釉綠', '粉紅', '淡紫', '黑白', '黯綠', '褐', '金黃','美麗','漂亮','開開心心','怒','尷尬','時間管理','努力的','亭亭玉立','忿忿不平','嘻嘻哈哈','淺藍','閃亮','暗', '好奇', '帥氣', '討人喜愛的', '受人喜歡的', '天然呆的', '圓滾滾的', '懶洋洋的', '烏拉拉的']
+      const n = ['寶寶','獨角獸','大師','打工仔','老司機','美少女','葛格','恐龍化石','小可愛','小姐姐','大學生','蟑螂','小男孩', '大美女', '北鼻','教授','帥哥','饒舌歌手','湯姆貓','米奇老鼠','小飛象','小公主','美人魚','花木蘭', '柴柴', '小水獺', '小企鵝', '小公雞', '小貓咪'] 
       return adj[getRandomInt(adj.length)] + adj[getRandomInt(adj.length)] + n[getRandomInt(n.length)];
     }
     // name
@@ -152,7 +182,7 @@
       let template = `
         <li>
           <div class='name'>${name} ： </div>
-          <div class='mssg'>${mssg}</div>
+          <div class='mssg' >${mssg}</div>
         </li>
       `;
       chatList.innerHTML += template;
@@ -165,7 +195,7 @@
   </script>
 </body>
 <footer>
-  <p>an <a href="https://www.instagram.com/astn.0820_/ " target="_blank" style="text-decoration:none;">Austin Liu</a> Production</p>
+  <p>an <a href="https://www.instagram.com/astn.0820_/ " target="_blank" style="text-decoration:none;  color:black;">Austin Liu</a> Production</p>
   <p>Chatting Booth © 2020</p>
   <!-- A footer for the page. -->
 </footer>
