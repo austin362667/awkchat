@@ -340,7 +340,7 @@ $(function() {
 
     function alert_0() {
       log(' 您做的很好!可惜現在沒有人落單..');
-      log('再等等看吧!')
+      log(' 再等等看吧!')
     }
   
     var timeoutID_1;
