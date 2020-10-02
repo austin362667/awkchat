@@ -1,10 +1,15 @@
 var FADE_TIME = 150; // ms
-var TYPING_TIMER_LENGTH = 3000; // ms
+var TYPING_TIMER_LENGTH = 2000; // ms
 var COLORS = [
 '#e21400', '#91580f', '#f8a700', '#f78b00',
 '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
 '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
 ];
+
+navigator.vibrate = navigator.vibrate
+|| navigator.webkitVibrate
+|| navigator.mozVibrate
+|| navigator.msVibrate;
 
 // Initialize variables
 var $window = $(window);
@@ -409,6 +414,7 @@ $(function() {
 
   
   socket.on('joinSuccess', function (data) {
+    navigator.vibrate([500, 300, 400,300]);
     log('High Five！配對成功！您加入了一場尬聊 ' + data.gameId);
     log('您已進入1對1加密聊天室!');
     clearTimeout(timeoutID_1);
