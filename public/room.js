@@ -6,10 +6,10 @@ var COLORS = [
 '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
 ];
 
-navigator.vibrate = navigator.vibrate
-|| navigator.webkitVibrate
-|| navigator.mozVibrate
-|| navigator.msVibrate;
+// navigator.vibrate = navigator.vibrate
+// || navigator.webkitVibrate
+// || navigator.mozVibrate
+// || navigator.msVibrate;
 
 // Initialize variables
 var $window = $(window);
@@ -423,8 +423,7 @@ $(function() {
     clearTimeout(timeoutID_5);
     $inputMessage.fadeIn();
     $inputMessageBtn.fadeIn();
-    window.navigator.vibrate([500, 300, 400,300]);
-
+    
   });
   
   
