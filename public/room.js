@@ -414,7 +414,7 @@ $(function() {
 
   
   socket.on('joinSuccess', function (data) {
-    navigator.vibrate([500, 300, 400,300]);
+    window.navigator.vibrate([500, 300, 400,300]);
     log('High Five！配對成功！您加入了一場尬聊 ' + data.gameId);
     log('您已進入1對1加密聊天室!');
     clearTimeout(timeoutID_1);
