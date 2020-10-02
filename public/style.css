@@ -265,7 +265,8 @@ div.msg-box .ip-msg
   width: 100%;
   font-size: 14px;
   padding: 15px;
-  padding-right: 30%;
+  padding-right: 15%;
+  padding-left: 15%;
   color: black;
   border: none;
   /* background: rgba(0,0,0,0.03); */
@@ -285,6 +286,16 @@ div.msg-box span.btn-group
   display: inline-block;
   margin-right: 10px;
 }
+div.msg-box span.btn-group-left
+{
+  position: absolute;
+  left: 0;
+  /* top: 0; */
+  margin: 14px;
+  /* margin-top: 14px; */
+  display: inline-block;
+  /* margin-right: 10px; */
+}
 
 div.msg-box span.btn-group i
 {
@@ -292,6 +303,14 @@ div.msg-box span.btn-group i
   font-size: 18px;
   padding: 0 7px;
 }
+
+div.msg-box span.btn-group-left i
+{
+  color: rgba(60,51,176,1);
+  font-size: 18px;
+  padding: 0 7px;
+}
+
 
 
 /* input{ 
