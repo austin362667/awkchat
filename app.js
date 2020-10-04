@@ -72,6 +72,7 @@ app.get('/video/:room', (req, res) => {
 })
 var n = 0;
 io.on('connection', socket => {
+  console.log(n);
   socket.on('join-room', (roomId, userId) => {
     if ( n < 2 ){
       console.log(roomId, userId)
