@@ -24,7 +24,9 @@ var options = {
   cert: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')
 };
 var https = require('https')
-const server = https.createServer(options,app);
+const server = https.createServer(options,app).listen(443, () => {
+  console.log('listening on *:443');
+});;
 
 // var http = require('http')
 // const server = http.createServer(app);
@@ -32,7 +34,7 @@ const server = https.createServer(options,app);
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
-var io = require('socket.io')(server);
+var io = require('socket.io').listen(server);
 // require('./router')(app, 'lattemall.company');
 
 const db = require('./queries')
@@ -523,6 +525,6 @@ io.on('connection', function (socket) {
 });
 
 //start and listen server
-server.listen(443, () => {
-  console.log('listening on *:443');
-});
+// server.listen(443, () => {
+//   console.log('listening on *:443');
+// });

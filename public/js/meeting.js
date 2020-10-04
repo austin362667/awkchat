@@ -312,7 +312,7 @@ var Meeting = function (socketioHost) {
 	 */
     function openSignalingChannel(channel) {
         var namespace = _host + '/' + channel;
-        var sckt = io()//.connect(namespace,{secure: true});
+        var sckt = io.connect(namespace,{secure: true});
         return sckt;
     }
 
