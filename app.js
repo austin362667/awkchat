@@ -65,7 +65,7 @@ app.get('/:path',function(req,res){
   var path = req.params.path;
   console.log(path);
   console.log("Requested room "+path);
-  res.render('room', {"hostAddress":'lattemall.company'});  
+  res.render('video', {"hostAddress":''});  
 });
 
 app.get('/room', (req, res) => {
