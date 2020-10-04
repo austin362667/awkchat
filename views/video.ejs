@@ -38,13 +38,13 @@ navigator.mediaDevices.getUserMedia({
   video: true,
   audio: true
 }).then(stream => {
-  await addVideoStream(myVideo, stream)
+  addVideoStream(myVideo, stream)
 
   myPeer.on('call', call => {
     call.answer(stream)
     const video = document.createElement('video')
     call.on('stream', userVideoStream => {
-      await addVideoStream(video, userVideoStream)
+      addVideoStream(video, userVideoStream)
     })
   })
 
