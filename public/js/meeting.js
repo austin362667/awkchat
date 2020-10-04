@@ -311,8 +311,8 @@ var Meeting = function (socketioHost) {
 	 * @return the socket
 	 */
     function openSignalingChannel(channel) {
-        var namespace =  'lattemall.comapny/' + channel;//_host + 
-        var sckt = io.connect(namespace,{secure: true});
+        var namespace = _host + '/' + channel;
+        var sckt = io()//.connect(namespace,{secure: true});
         return sckt;
     }
 
