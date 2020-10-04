@@ -114,9 +114,9 @@ app.use(express.static('public'))
 //   }
 // });
 
-// app.get('/video', (req, res) => {
-//   res.sendFile(__dirname + '/public/video.html');
-// });
+app.get('/video', (req, res) => {
+  res.sendFile(__dirname + '/public/video.html');
+});
 
 io.on('connection', (socket) => {
   console.log('a user connected');
