@@ -62,9 +62,9 @@ app.get('/video/full', (req, res) => {
   res.sendFile(__dirname+'/public/videoLobby.html');
 });
 
-app.get('/video', (req, res) => {
-  res.redirect(`/video/${uuidV4()}`)
-})
+// app.get('/video', (req, res) => {
+//   res.redirect(`/video/${uuidV4()}`)
+// })
 //vc3
 app.get('/video/:room', (req, res) => {
   console.log('room id: ',req.params.room);
