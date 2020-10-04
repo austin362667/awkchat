@@ -26,11 +26,11 @@ var options = {
 var https = require('https')
 const server = https.createServer(options,app);
 
-var http = require('http')
-const server = http.createServer(app);
+// var http = require('http')
+// const server = http.createServer(app);
 
-// app.set('view engine', 'ejs');
-// app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
 
 var io = require('socket.io')(server);
 require('./router')(app, '15.165.187.225');
