@@ -33,7 +33,7 @@ app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
 var io = require('socket.io')(server);
-require('./router')(app, 'lattemall.company');
+// require('./router')(app, 'lattemall.company');
 
 const db = require('./queries')
 
@@ -53,6 +53,17 @@ app.use(function(req, res, next) {
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname+'/public/index.html');
+});
+
+app.get('/video',function(req,res){
+  res.render('home');
+});
+
+app.get('/:path',function(req,res){
+  var path = req.params.path;
+  console.log(path);
+  console.log("Requested room "+path);
+  res.render('room', {"hostAddress":'15.165.187.225:443'});  
 });
 
 app.get('/room', (req, res) => {
