@@ -94,13 +94,13 @@ let localstream;
 async function createMedia() {
   // 儲存本地流到全域
   constraints = { audio: true, video: true }
-  navigator.mediaDevices.getUserMedia(constraints)
-.then(function(stream) {
-  localstream = stream;
-})
-.catch(function(err) {
-  console.log('error on get user media.')
-});
+  localstream = await navigator.mediaDevices.getUserMedia(constraints)
+// .then(function(stream) {
+//   localstream = stream;
+// })
+// .catch(function(err) {
+//   console.log('error on get user media.')
+// });
   // localstream = await navigator.mediaDevices.getUserMedia()
   myVideo.srcObject = localstream;
 };
