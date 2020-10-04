@@ -80,7 +80,8 @@ io.on('connection', socket => {
       socket.to(roomId).broadcast.emit('user-connected', userId)
       n+=1;
     }else{
-      res.redirect(`/video/full`)
+      console.log('full')
+      // res.redirect(`/video/full`)
     }
 
 
