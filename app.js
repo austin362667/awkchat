@@ -63,7 +63,7 @@ app.get('/:path',function(req,res){
   var path = req.params.path;
   console.log(path);
   console.log("Requested room "+path);
-  res.render('room', {"hostAddress":'15.165.187.225:443'});  
+  res.render('room', {"hostAddress":'lattemall.company'});  
 });
 
 app.get('/room', (req, res) => {
