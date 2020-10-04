@@ -33,7 +33,7 @@ app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
 var io = require('socket.io')(server);
-require('./router')(app, '15.165.187.225');
+require('./router')(app, 'lattemall.company');
 
 const db = require('./queries')
 
