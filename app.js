@@ -1,7 +1,7 @@
 var express = require('express');
 var app = require('express')();
 var fs = require('fs');
-const { v4: uuidV4 } = require('uuid'
+const { v4: uuidV4 } = require('uuid');
 
 // var enforce = require('express-sslify');
 // const redis = require("redis");
