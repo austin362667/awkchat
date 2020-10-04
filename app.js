@@ -57,16 +57,26 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname+'/public/index.html');
 });
 
-app.get('/video',function(req,res){
-  res.render('home');
-});
+// app.get('/video',function(req,res){
+//   res.render('home');
+// });
 
-app.get('/:path',function(req,res){
-  var path = req.params.path;
-  console.log(path);
-  console.log("Requested room "+path);
-  res.render('video', {"hostAddress":''});  
-});
+//vc3
+app.get('/video/:room', (req, res) => {
+  res.render('video', { roomId: req.params.room })
+})
+
+io.on('connection', socket => {
+  socket.on('join-room', (roomId, userId) => {
+    socket.join(roomId)
+    socket.to(roomId).broadcast.emit('user-connected', userId)
+
+    socket.on('disconnect', () => {
+      socket.to(roomId).broadcast.emit('user-disconnected', userId)
+    })
+  })
+})
+
 
 app.get('/room', (req, res) => {
   return res.redirect('https://lattemall.company');
@@ -472,57 +482,57 @@ io.on('connection', function (socket) {
 // });
 
 //vc2
-io.on('connection', function (socket) {
+// io.on('connection', function (socket) {
     
-	function log(){
-        var array = [">>> Message from server: "];
-        for (var i = 0; i < arguments.length; i++) {
-	  	    array.push(arguments[i]);
-        }
-	    socket.emit('log', array);
-	}
+// 	function log(){
+//         var array = [">>> Message from server: "];
+//         for (var i = 0; i < arguments.length; i++) {
+// 	  	    array.push(arguments[i]);
+//         }
+// 	    socket.emit('log', array);
+// 	}
 
-	socket.on('message', function (message) {
-		log('Got message: ', message);
-		log('socket.room: ', socket.room);
-        socket.broadcast.to(socket.room).emit('message', message);
-	});
+// 	socket.on('message', function (message) {
+// 		log('Got message: ', message);
+// 		log('socket.room: ', socket.room);
+//         socket.broadcast.to(socket.room).emit('message', message);
+// 	});
     
-	socket.on('create or join', function (message) {
-		log('Got message create or join: ', message);
-        var room = message.room;
-        socket.room = room;
-        var participantID = message.from;
-        configNameSpaceChannel(participantID);
+// 	socket.on('create or join', function (message) {
+// 		log('Got message create or join: ', message);
+//         var room = message.room;
+//         socket.room = room;
+//         var participantID = message.from;
+//         configNameSpaceChannel(participantID);
         
-		var numClients = io.sockets.clients(room).length;
+// 		var numClients = io.sockets.clients(room).length;
 
-		log('Room ' + room + ' has ' + numClients + ' client(s)');
-		log('Request to create or join room', room);
+// 		log('Room ' + room + ' has ' + numClients + ' client(s)');
+// 		log('Request to create or join room', room);
 
-		if (numClients == 0){
-			socket.join(room);
-			socket.emit('created', room);
-		} else {
-			io.sockets.in(room).emit('join', room);
-			socket.join(room);
-			socket.emit('joined', room);
-		}
-	});
+// 		if (numClients == 0){
+// 			socket.join(room);
+// 			socket.emit('created', room);
+// 		} else {
+// 			io.sockets.in(room).emit('join', room);
+// 			socket.join(room);
+// 			socket.emit('joined', room);
+// 		}
+// 	});
     
-    // Setup a communication channel (namespace) to communicate with a given participant (participantID)
-    function configNameSpaceChannel(participantID) {
-        var socketNamespace = io.of('/'+participantID);
+//     // Setup a communication channel (namespace) to communicate with a given participant (participantID)
+//     function configNameSpaceChannel(participantID) {
+//         var socketNamespace = io.of('/'+participantID);
         
-        socketNamespace.on('connection', function (socket){
-            socket.on('message', function (message) {
-                // Send message to everyone BUT sender
-                socket.broadcast.emit('message', message);
-            });
-        });
-    }
+//         socketNamespace.on('connection', function (socket){
+//             socket.on('message', function (message) {
+//                 // Send message to everyone BUT sender
+//                 socket.broadcast.emit('message', message);
+//             });
+//         });
+//     }
 
-});
+// });
 
 //start and listen server
 // server.listen(443, () => {
