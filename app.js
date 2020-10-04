@@ -73,6 +73,7 @@ app.get('/video/:room', (req, res) => {
 rec = []//
 io.on('connection', socket => {
   socket.on('join-room', (roomId, userId) => {
+    console.log(rec);
     console.log(roomId, userId)
     for ( i of rec) {
       for ( j of rec) {
@@ -84,8 +85,9 @@ io.on('connection', socket => {
         socket.to(roomId).broadcast.emit('user-connected', userId)
        }
     }
-    socket.join(roomId)
-    socket.to(roomId).broadcast.emit('user-connected', userId)
+  }
+    // socket.join(roomId)
+    // socket.to(roomId).broadcast.emit('user-connected', userId)
 
     socket.on('disconnect', () => {
       for ( el of rec ) {
