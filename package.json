@@ -19,6 +19,7 @@
     "express-sslify": "1.2.0",
     "pg": "8.3.3",
     "express-promise-router": "4.0.1",
-    "ejs": "~1.0.0"
+    "ejs": "~1.0.0",
+    "uuid": "^8.1.0"
   }
 }

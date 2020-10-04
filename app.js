@@ -57,10 +57,9 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname+'/public/index.html');
 });
 
-// app.get('/video',function(req,res){
-//   res.render('home');
-// });
-
+app.get('/video', (req, res) => {
+  res.redirect(`/video/${uuidV4()}`)
+})
 //vc3
 app.get('/video/:room', (req, res) => {
   res.render('video', { roomId: req.params.room })
