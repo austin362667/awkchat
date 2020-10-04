@@ -63,7 +63,7 @@ app.get('/video', (req, res) => {
 })
 //vc3
 app.get('/video/:room', (req, res) => {
-  console.log(req.params.room);
+  console.log('room id: ',req.params.room);
   res.render('video', { roomId: req.params.room })
 })
 
