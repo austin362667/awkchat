@@ -58,6 +58,10 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname+'/public/index.html');
 });
 
+app.get('/videoLobby', (req, res) => {
+  res.sendFile(__dirname+'/public/videoLobby.html');
+});
+
 app.get('/video', (req, res) => {
   res.redirect(`/video/${uuidV4()}`)
 })
@@ -66,14 +70,29 @@ app.get('/video/:room', (req, res) => {
   console.log('room id: ',req.params.room);
   res.render('video', { roomId: req.params.room })
 })
-
+rec = []//
 io.on('connection', socket => {
   socket.on('join-room', (roomId, userId) => {
     console.log(roomId, userId)
+    for ( i of rec) {
+      for ( j of rec) {
+       if ( (i['key'] === j['key'] && i['value'] !== j['value']) && (i['value'] !== null || j['value']!== null)) {
+        res.redirect(`/video/${roomId+1}`)
+       }else{
+        rec.push({key:roomId,value:userId})
+        socket.join(roomId)
+        socket.to(roomId).broadcast.emit('user-connected', userId)
+       }
+    }
     socket.join(roomId)
     socket.to(roomId).broadcast.emit('user-connected', userId)
 
     socket.on('disconnect', () => {
+      for ( el of rec ) {
+        if ( rec['value'] === userId){
+          rec['value'] = null;
+        }
+      }
       socket.to(roomId).broadcast.emit('user-disconnected', userId)
     })
   })

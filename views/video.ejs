@@ -7,7 +7,7 @@
   </script>
   <script src="/socket.io/socket.io.js"></script>
   <!-- <script src="script.js"></script> -->
-  <title>兩倍尬 | 2v2視訊尬聊 </title>
+  <title>兩倍尬 | 2v2視訊尬聊</title>
   <style>
     #video-grid {
       display: grid;
@@ -16,8 +16,8 @@
     }
     
     video {
-      width: 50%;
-      height: 50%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
   </style>
@@ -62,7 +62,7 @@ socket.on('user-disconnected', userId => {
 
 myPeer.on('open', id => {
 	console.log(ROOM_ID, id)
-	if ( id ) msg.innerHTML = '';
+	if ( id ){msg.innerHTML = '';}
   socket.emit('join-room', ROOM_ID, id)
 })
 

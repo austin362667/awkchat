@@ -1,0 +1,20 @@
+<html>
+    <head>兩倍尬 | 2v2視訊尬聊</head>
+    <body>
+        <a href="javascript:openSite()">GO</a>
+    </body>
+    <script>
+        var links = [ 0 ]
+        
+                   var openSite = function() {
+                      // get a random number between 0 and the number of links
+                      var randIdx = Math.random() * links.length;
+                      // round it, so it can be used as array index
+                      randIdx = parseInt(randIdx, 10);
+                      // construct the link to be opened
+                      var link = 'https://lattemall.company/video/' + links[randIdx].toString();
+        
+             return link;
+            };
+        </script>
+</html>
