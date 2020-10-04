@@ -18,6 +18,7 @@
     "socket.io": "2.3.0",
     "express-sslify": "1.2.0",
     "pg": "8.3.3",
-    "express-promise-router": "4.0.1"
+    "express-promise-router": "4.0.1",
+    "ejs": "~1.0.0"
   }
 }
