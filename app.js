@@ -62,14 +62,14 @@ app.get('/video/full', (req, res) => {
   res.sendFile(__dirname+'/public/videoLobby.html');
 });
 
-const mm = require('matchmaking');
+const mms = require('matchmaking');
 
 function runGame(players) {
     console.log("Game started with:");
     console.log(players);
 }
 
-let mm = new mm.FifoMatchmaker(runGame, { checkInterval: 2000 });
+let mm = new mms.FifoMatchmaker(runGame, { checkInterval: 2000 });
 
 let player1 = { id:1 }
 let player2 = { id:2 }
