@@ -62,28 +62,36 @@ app.get('/video/full', (req, res) => {
   res.sendFile(__dirname+'/public/videoLobby.html');
 });
 
-let queue = []
-setInterval(async function()
-{
-  console.log('wait in queue: ', queue.length)
+// let queue = []
+// setInterval(async function()
+// {
+//   console.log('wait in queue: ', queue.length)
 
-if (queue.length>2){
-  io.on('connection', socket => {
-    for ( p of queue) {
-      socket.emit('join-room', '0000', p.id)//, ROOM_ID
-    }
+// if (queue.length>2){
+//   io.on('connection', socket => {
+//     for ( p of queue) {
+//       socket.emit('join-room', '0000', p.id)//, ROOM_ID
+//     }
 
-  })
-}
-
-
-}, 3000)
+//   })
+// }
 
 
+// }, 3000)
 
-// app.get('/video', (req, res) => {
-//   res.redirect(`/video/${uuidV4()}`)
-// })
+let tmpRoomId = '';
+let tmpNum = 0;
+const roomId;
+app.get('/video', (req, res) => {
+  if(tmpNum%2===0){
+    roomId = uuidV4();
+  }else{
+    roomId = tmpRoomId;
+  }
+  tmpRoomId = roomId;
+  tmpNum+=1;
+  res.redirect(`/video/${roomId}`)
+})
 //vc3
 app.get('/video/:room', (req, res) => {
   console.log('room id: ',req.params.room);
@@ -94,7 +102,7 @@ io.on('connection', socket => {
   socket.on('wait-room', (userId) => {
 
     let player = { id: userId}
-    queue.push(player);
+    // queue.push(player);
 
   })
   socket.on('join-room', (roomId, userId) => {
