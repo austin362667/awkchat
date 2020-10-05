@@ -61,28 +61,29 @@ app.get('/', (req, res) => {
 app.get('/video/full', (req, res) => {
   res.sendFile(__dirname+'/public/videoLobby.html');
 });
+
 const { FifoMatchmaker } = require('matchmaking');
 
-function runGame(players, options={maxMatchSize:2,minMatchSize:1}) {
-    // console.log(roomId, userId)
-
-    console.log("Game started with room:", roomId);
+function runGame(players) {
+    console.log("Game started with:");
     console.log(players);
-    io.on('connection', socket => {
-      for ( p of players){
-        console.log(p['id'])
-        // socket.emit('join-room', '0_0',  p['id'])
-      }
-    })
 }
+
 let mm = new FifoMatchmaker(runGame, { checkInterval: 2000 });
 
-// let player1 = { id:1 }
-// let player2 = { id:2 }
+let player1 = { id:1 }
+let player2 = { id:2 }
 
-// // Players join match queue
-// mm.push(player1);
-// mm.push(player2);
+// Players join match queue
+mm.push(player1);
+mm.push(player2);
+
+// When there are enough players, runGame will be called
+
+// Game started with:
+// [ {id:1}, {id:2} ]
+
+
 
 // app.get('/video', (req, res) => {
 //   res.redirect(`/video/${uuidV4()}`)
