@@ -73,7 +73,7 @@ if (queue.length>2){
       socket.emit('join-room', '0000', p.id)//, ROOM_ID
     }
 
-  }
+  })
 }
 
 
