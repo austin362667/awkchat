@@ -71,7 +71,7 @@ function runGame(players, options={maxMatchSize:2,minMatchSize:1}) {
     io.on('connection', socket => {
       for ( p of players){
         console.log(p['id'])
-        socket.emit('join-room', '0_0',  p['id'])
+        // socket.emit('join-room', '0_0',  p['id'])
       }
     })
 }
