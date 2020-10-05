@@ -63,14 +63,15 @@ app.get('/video/full', (req, res) => {
 });
 const { FifoMatchmaker } = require('matchmaking');
 
-function runGame(players, roomId, options={maxMatchSize:2,minMatchSize:1}) {
+function runGame(players, options={maxMatchSize:2,minMatchSize:1}) {
     // console.log(roomId, userId)
 
     console.log("Game started with room:", roomId);
     console.log(players);
     io.on('connection', socket => {
       for ( p of players){
-        socket.emit('join-room', roomId,  p['id'])
+        console.log(p['id'])
+        socket.emit('join-room', '0_0',  p['id'])
       }
     })
 }
