@@ -61,6 +61,27 @@ app.get('/', (req, res) => {
 app.get('/video/full', (req, res) => {
   res.sendFile(__dirname+'/public/videoLobby.html');
 });
+const { FifoMatchmaker } = require('matchmaking');
+
+function runGame(players, roomId, options={maxMatchSize:2,minMatchSize:1}) {
+    // console.log(roomId, userId)
+
+    console.log("Game started with room:", roomId);
+    console.log(players);
+    io.on('connection', socket => {
+      for ( p of players){
+        socket.emit('join-room', roomId,  p['id'])
+      }
+    })
+}
+let mm = new FifoMatchmaker(runGame, { checkInterval: 2000 });
+
+// let player1 = { id:1 }
+// let player2 = { id:2 }
+
+// // Players join match queue
+// mm.push(player1);
+// mm.push(player2);
 
 // app.get('/video', (req, res) => {
 //   res.redirect(`/video/${uuidV4()}`)
@@ -70,26 +91,24 @@ app.get('/video/:room', (req, res) => {
   console.log('room id: ',req.params.room);
   res.render('video', { roomId: req.params.room })
 })
-var n = 0;
 io.on('connection', socket => {
-  console.log(n);
-  socket.on('join-room', (roomId, userId) => {
-    if ( n < 2 ){
+  socket.on('wait-room', (userId) => {
+
+    let player = { id: userId}
+    mm.push(player);
+
+  })
+  io.on('connection', socket => {
+    socket.on('join-room', (roomId, userId) => {
       console.log(roomId, userId)
       socket.join(roomId)
       socket.to(roomId).broadcast.emit('user-connected', userId)
-      n+=1;
-    }else{
-      console.log('full')
-      // res.redirect(`/video/full`)
-    }
-
-
-    socket.on('disconnect', () => {
-      socket.to(roomId).broadcast.emit('user-disconnected', userId)
-      n-=1;
     })
-  })
+
+      socket.on('disconnect', () => {
+      socket.to(roomId).broadcast.emit('user-disconnected', userId)
+    })
+})
 })
 
 

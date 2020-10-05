@@ -20,6 +20,7 @@
     "pg": "8.3.3",
     "express-promise-router": "4.0.1",
     "ejs": "~1.0.0",
-    "uuid": "^8.1.0"
+    "uuid": "^8.1.0",
+    "matchmaking": "0.4.32"
   }
 }
