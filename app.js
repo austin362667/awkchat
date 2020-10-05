@@ -83,7 +83,7 @@ let tmpRoomId = '';
 let tmpNum = 0;
 let roomId = '';
 app.get('/video', (req, res) => {
-  if(tmpNum%2===0){
+  if(tmpNum%2 === 0){
     roomId = uuidV4();
   }else{
     roomId = tmpRoomId;
