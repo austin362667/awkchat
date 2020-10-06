@@ -98,6 +98,7 @@ const createPost = (request, response) => {
     if (error) {
       throw error
     }
+    response.redirect("https://lattemall.company/chat");
     // response.status(201).send(`Post added with ID: ${result.insertId}`)
   })
 }
