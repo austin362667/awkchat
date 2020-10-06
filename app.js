@@ -57,7 +57,7 @@ app.put('/api/posts/:id', db.updatePost)
 app.delete('/api/posts/:id', db.deletePost)
 
 app.get('/post/:room' , (req, res) => {
-  console.log('room id: ',req.params.room);
+  // console.log('room id: ',req.params.room);
   res.render('room', { roomId: req.params.room })
 });
 
@@ -111,7 +111,7 @@ app.get('/video', (req, res) => {
 })
 //vc3
 app.get('/video/:room', (req, res) => {
-  console.log('room id: ',req.params.room);
+  // console.log('room id: ',req.params.room);
   res.render('video', { roomId: req.params.room })
 })
 
