@@ -91,7 +91,7 @@ const getPostById = (request, response) => {
 }
 
 const createPost = (request, response) => {
-  console.log(request.body)
+  // console.log(request.body)
   const { title } = request.body
 
   const result = pool.query('INSERT INTO posts (title) VALUES ($1)', [title], (error, results) => {
@@ -133,7 +133,7 @@ const deletePost = (request, response) => {
 //Messages
 const getMessagesByPostId = (request, response) => {
   const id = request.params.id;
-console.log('log', id)
+// console.log('log', id)
   pool.query('SELECT * FROM messages WHERE pid = $1 ORDER BY created_at ASC', [id], (error, results) => {
     if (error) {
       throw error
@@ -145,7 +145,7 @@ console.log('log', id)
 const createMessages = (request, response) => {
   // console.log(request.body)
   const { pid, user, content } = request.body
-console.log(pid, user, content)
+// console.log(pid, user, content)
   const result = pool.query('INSERT INTO messages (pid, username, message) VALUES ($1, $2, $3)', [pid, user, content], (error, results) => {
     if (error) {
       throw error
