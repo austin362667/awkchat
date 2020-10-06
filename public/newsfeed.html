@@ -1,0 +1,114 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+        <title>匿名聊天室</title>
+<style>.container {
+    display: grid;
+    gap: 1rem;
+  
+    grid-template-columns: repeat(1, 1fr);
+    grid-auto-rows: 60px;
+}
+
+p{
+    text-align:center;display: flex; justify-content: center;
+    padding: 1%;
+    margin: 1%;
+}
+textarea{
+    resize: none;
+    height: 100px;
+    width: 500px;
+}
+a{
+    text-decoration:none; 
+    font-size: 1.5rem; 
+    text-align:center;display: flex; justify-content: center;
+    padding: 1%;
+    margin: 1%;
+}
+</style>
+    </head>
+    <header>
+        <div id = "post">
+            <form method="post" enctype="multipart/form-data" id="postForm" action='/chat'>
+            
+              <p>
+                <label for="title">話題：</label>
+            </p>
+<p>
+    <textarea name="title" id="title" placeholder="想討論些甚麼呢?" required></textarea>
+
+</p>
+            </form>
+            <p><button onclick="Post.submit()">開聊</button></p>
+            <p class="msg" id="msg">&nbsp;</p>
+            </div>
+    </header>
+    <body onload="User.show()">
+        <div class="list">
+            <div class="container" id="postList">
+            </div>
+        </div>
+    </body>
+    <script>
+        const User = {}
+        let posts = [];
+        list = document.getElementById('postList');
+
+
+        User.all = async function () {
+            var res = await window.fetch("/api/posts", {
+                method: "GET",
+            })
+            res.ok ? posts = await res.json() : posts = {};
+            console.log(posts);
+        return posts;
+        }
+
+        User.show = async function (posts) {
+            posts = await User.all();
+            for (let i = 0; i < posts.length; i++) {
+                post = document.createElement('a');
+                console.log(posts[i].title);
+                post.innerHTML = posts[i].title;
+                post.target = "_blank";
+                // post.style = "";
+                post.href = `/post/${posts[i].pid}`;
+                list.appendChild(post);
+            }
+        }
+
+    </script>
+
+<script>
+
+    const Post = {};
+    
+    Post.submit = async function () {
+      var title = document.getElementById("title").value;
+    //   var form = new FormData();
+    //   form.append("title", title)
+      var res = await window.fetch('api/post', {
+            body: JSON.stringify({ title : title }),
+            method: 'post',
+            headers : { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+  })
+      console.log(res.json())
+      document.getElementById("msg").innerHTML = res.ok ? "開聊成功!" : "開聊失敗..請先登入!";
+    };
+
+
+
+    
+    </script>
+
+</html>
+
+
+

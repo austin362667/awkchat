@@ -1,10 +1,11 @@
-var FADE_TIME = 150; // ms
+var FADE_TIME = 10; // ms
 var TYPING_TIMER_LENGTH = 1000; // ms
 var COLORS = [
 '#e21400', '#91580f', '#f8a700', '#f78b00',
 '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
 '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
 ];
+var message = "";
 
 // Initialize variables
 var $window = $(window);
@@ -32,7 +33,10 @@ var username;
 
 
 function joinGame(){
-  socket.emit('joinGame');
+  // var $title = $('#title').val;
+console.log(ROOM_ID)
+  socket.emit('joinGame2', ROOM_ID);
+  
 };
 
     // Sets the client's username
@@ -55,7 +59,6 @@ function joinGame(){
       }
     }
 
-$(function() {
 
     // var $currentInput = $usernameInput.focus();
   
@@ -75,7 +78,7 @@ $(function() {
   
     // Sends a chat message
     function sendMessage () {
-      var message = $inputMessage.val();
+      message = $inputMessage.val();
       // Prevent markup from being injected into the message
       message = cleanInput(message);
       // if there is a non-empty message and a socket connection
@@ -86,7 +89,8 @@ $(function() {
           message: message
         });
         // tell server to execute 'new message' and send along one parameter
-        socket.emit('new message', message);
+        socket.emit('new message2', message, ROOM_ID);
+        Post.messages();
         $inputMessage.focus();
       }
     }
@@ -295,11 +299,13 @@ $(function() {
     socket.on('login', function (data) {
       connected = true;
       // Display the welcome message
-      var message = "歡迎來到 'Chatting Booth' 尬聊小站 ";
+      var message = "歡迎來到 'Chatting Booth' 尬聊小站 的 話題聊天室 ";
       log(message, {
         prepend: true
       });
-      log("重新配對按左下方 X ")
+      log('您已進入多人加密聊天室!');
+      log("您所有的留言都會是匿名的~")
+      
       // addParticipantsMessage(data);
     });
   
@@ -409,8 +415,7 @@ $(function() {
 
   
   socket.on('joinSuccess', function (data) {
-    log('High Five！配對成功！您加入了一場尬聊 ' + data.gameId);
-    log('您已進入1對1加密聊天室!');
+    log('歡迎用戶加入!');
     clearTimeout(timeoutID_1);
     clearTimeout(timeoutID_2);
     clearTimeout(timeoutID_3);
@@ -462,7 +467,6 @@ $(function() {
     // $inputMessage.fadeOut();
   });
   
-  });
 
 
 
@@ -475,11 +479,34 @@ $(function() {
     const n = ['寶寶','獨角獸','大師','打工仔','老司機','美少女','葛格','恐龍化石','小可愛','小姐姐','大學生','蟑螂','小男孩', '大美女', '北鼻','教授','帥哥','饒舌歌手','湯姆貓','米奇老鼠','小飛象','小公主','美人魚','花木蘭', '柴柴', '小水獺', '小企鵝', '小公雞', '小貓咪'] 
     return adj[getRandomInt(adj.length)] + n[getRandomInt(n.length)];
   }
+
+  logMessages = async function () {
+    var title = document.getElementById("title").value;
+  //   var form = new FormData();
+  //   form.append("title", title)
+  
+    var res = await window.fetch(`/api/messages/${ROOM_ID}`, {
+          method: 'get',
+          headers : { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+          }
+})
+    let datas = await res.json()
+    console.log(datas)
+    for ( let c = 0; c < datas.length; c++ ){
+      console.log(datas[c])
+      addChatMessage(datas[c]);
+    }
+    // document.getElementById("msg").innerHTML = res.ok ? "開聊成功!" : "開聊失敗..請先登入!";
+  };
   // name
 window.onload = function() {
+  logMessages();
   
-username = generateName();
+    username = generateName();
     setUsername();
     joinGame();
 
+  Post.log();
 }

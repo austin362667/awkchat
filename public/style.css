@@ -335,3 +335,9 @@ button{
   cursor: pointer;
   /* width: 10%; */
 }
+
+#title{
+  text-align:center;
+  display: flex;
+  justify-content: center;
+}

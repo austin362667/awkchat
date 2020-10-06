@@ -30,22 +30,39 @@ const server = https.createServer(options,app).listen(443, () => {
 });;
 
 // var http = require('http')
-// const server = http.createServer(app);
+// const server = http.createServer(app).listen(443, () => {
+//     console.log('listening on *:443');
+//   });
 
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
 var io = require('socket.io').listen(server);
 // require('./router')(app, 'lattemall.company');
+var bodyParser = require('body-parser')
+var jsonParser = bodyParser.json()
 
 const db = require('./queries')
 
-app.get('/users', db.getUsers)
-app.get('/users/:id', db.getUserById)
-app.post('/users', db.createUser)
-app.put('/users/:id', db.updateUser)
-app.delete('/users/:id', db.deleteUser)
+app.get('/api/users', db.getUsers)
+app.get('/api/users/:id', db.getUserById)
+app.post('/api/user', db.createUser)
+app.put('/api/users/:id', db.updateUser)
+app.delete('/api/users/:id', db.deleteUser)
 
+app.get('/api/posts', db.getPosts)
+app.get('/api/posts/:id', db.getPostById)
+app.post('/api/post', jsonParser, db.createPost)
+app.put('/api/posts/:id', db.updatePost)
+app.delete('/api/posts/:id', db.deletePost)
+
+app.get('/post/:room' , (req, res) => {
+  console.log('room id: ',req.params.room);
+  res.render('room', { roomId: req.params.room })
+});
+
+app.get('/api/messages/:id', db.getMessagesByPostId)
+app.post('/api/messages', jsonParser, db.createMessages)
 
 app.use(function(req, res, next) {
   if(!req.secure) {
@@ -58,8 +75,8 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname+'/public/index.html');
 });
 
-app.get('/video/full', (req, res) => {
-  res.sendFile(__dirname+'/public/videoLobby.html');
+app.get('/chat', (req, res) => {
+  res.sendFile(__dirname+'/public/newsfeed.html');
 });
 
 // let queue = []
@@ -339,7 +356,30 @@ function gameSeeker (socket) {
   }
 }
 
+io.on('connection', function (socket) {
+  var addedUser = false;
+  // when the client emits 'new message', this listens and executes
+  socket.on('new message2', function (data,ROOM_ID ) {
+    
+    // console.log("dict", dict);
+    // let room = ROOM_ID;
+    // for(el of dict){
+    // // console.log(socket.username, el);
 
+    //   if(socket.id === el['key']){
+    //     room = el['value'];
+    //   }
+    // }
+    console.log(ROOM_ID,'-',socket.username,': ',data);
+
+    // we tell the client to execute 'new message'
+    socket.in(ROOM_ID).broadcast.emit('new message', {
+      username: socket.username,
+      message: data
+    });
+  });
+
+})
 // Chatroom
 
 var numUsers = 0;
@@ -429,6 +469,18 @@ io.on('connection', function (socket) {
       });
     }
   });
+
+  socket.on('joinGame2', function (ROOM_ID){
+console.log(ROOM_ID)
+    socket.join(ROOM_ID);// join room
+    // dict.push({
+    //   key:   socket.id,
+    //   value: ROOM_ID
+    // });
+    io.sockets.in(ROOM_ID).emit('joinSuccess', {
+      ROOM_ID});
+    
+  })
 
 
   socket.on('joinGame', function (){
