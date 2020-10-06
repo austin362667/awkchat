@@ -91,6 +91,7 @@ a{
       var title = document.getElementById("title").value;
     //   var form = new FormData();
     //   form.append("title", title)
+    if(title){
       var res = await window.fetch('api/post', {
             body: JSON.stringify({ title : title }),
             method: 'post',
@@ -101,7 +102,8 @@ a{
   })
       console.log(res.json())
       document.getElementById("msg").innerHTML = res.ok ? "開聊成功!" : "開聊失敗..請先登入!";
-    };
+    
+    }};
 
 
 
