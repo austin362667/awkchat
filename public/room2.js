@@ -502,11 +502,12 @@ console.log(ROOM_ID)
   };
   // name
 window.onload = function() {
+  Post.show();
   logMessages();
   
     username = generateName();
     setUsername();
     joinGame();
 
-  Post.log();
+  // Post.log();
 }
