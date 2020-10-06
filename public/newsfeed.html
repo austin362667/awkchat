@@ -43,7 +43,7 @@ a{
 
 </p>
             </form>
-            <p><button onclick="Post.submit()">開聊</button></p>
+            <p><button onclick="Post.submit()">開話題</button></p>
             <p class="msg" id="msg">&nbsp;</p>
             </div>
     </header>
@@ -91,7 +91,7 @@ a{
       var title = document.getElementById("title").value;
     //   var form = new FormData();
     //   form.append("title", title)
-    if(title && title.length>5){
+    if(title && title.length>6){
       var res = await window.fetch('api/post', {
             body: JSON.stringify({ title : title }),
             method: 'post',
@@ -101,7 +101,7 @@ a{
             }
   })
       console.log(res.json())
-      document.getElementById("msg").innerHTML = res.ok ? "開聊成功!" : "開聊失敗..請先登入!";
+      document.getElementById("msg").innerHTML = res.ok ? "開聊成功!" : "開聊失敗..";
     
     }else{
         document.getElementById("msg").innerHTML = "Sorry!請輸入更有意義的內容呀~"
