@@ -24,7 +24,7 @@
 </head>
 
 <body >
-  <h1 id='title' >Chatting Booth | 尬聊小站</h1>
+  <!-- <h1 id='title' >Chatting Booth | 尬聊小站</h1> -->
   <ul class="pages">
     <li class="chat page">
     <!-- <div class='gameButtons'>
@@ -39,7 +39,7 @@
       <div class="chat-form sticky" id="chat-form">
         <div class="msg-box">
           <span class="btn-group-left">
-            <a href='/forum'><i class="fa fa-arrow-left" ></i></a>
+            <a href='/avenue'><i class="fa fa-arrow-left" ></i></a>
           </span>
           <input type="text" class="ip-msg" placeholder="輸入訊息.." />
           <span class="btn-group">
@@ -70,7 +70,7 @@
 
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <script src="/room2.js"></script>
+  <script src="/room3.js"></script>
 <script>// When the user scrolls the page, execute myFunction
 // When the user scrolls the page, execute myFunction
 // window.onscroll = function() {myFunction()};
@@ -93,13 +93,15 @@ var sticky = header.offsetTop;
 <!-- <script src="./register_sw.js"></script> -->
 <script>
   const ROOM_ID = '<%= roomId %>'
+  username = '<%= username %>'
   console.log(ROOM_ID)
+  console.log(username)
 </script>
 <script>
   const Post = {}
   Post.id = async function () {
    var data;
-            var res = await window.fetch(`/api/posts/${ROOM_ID}`, {
+            var res = await window.fetch(`/api/chats/${ROOM_ID}`, {
                 method: "GET",
             })
             res.ok ? data = await res.json() : data = {};
@@ -110,10 +112,10 @@ var sticky = header.offsetTop;
   let post;
 
     console.log(ROOM_ID);
-          let title = document.getElementById('title');
+          // let title = document.getElementById('title');
           post = await Post.id();
-          console.log('title', post.title)
-          title.innerHTML = post.title;
+          console.log('title', post.info)
+          // title.innerHTML = post.info;
         }
 
         Post.messages = async function () {

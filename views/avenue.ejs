@@ -1,0 +1,185 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+        <title>尬聊小站 | 話題聊天室</title>
+<style>
+/* .container {
+    display: grid;
+    gap: 1rem;
+  
+    grid-template-columns: repeat(1, 1fr);
+    grid-auto-rows: 60px;
+} */
+
+p{
+    text-align:center;display: flex; justify-content: center;
+    padding: 1%;
+    margin: 1%;
+}
+textarea{
+    resize: none;
+    height: 80px;
+    width: 500px;
+}
+a{
+    text-decoration:none; 
+    font-size: 0.5rem; 
+    text-align:center;display: flex; justify-content: center;
+    padding: 1%;
+    margin: 1%;
+    max-width: 50%;
+}
+.list {
+    text-align:center;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 300px;
+  height: 200px;
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 5px; /* 5px rounded corners */
+  /*centering*/
+  text-align:center;
+  display: flex;
+  justify-content: center;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+img {
+  width:150px;
+  height: 150px;
+  border-radius: 99%;
+}
+/* Add some padding inside the card container */
+.container {
+  padding: 2px 16px;
+}
+</style>
+    </head>
+    <!-- <header>
+        <div id = "post">
+            <form method="post" enctype="multipart/form-data" id="postForm" action='/chat'>
+            
+              <p>
+                <label for="title">話題：</label>
+            </p>
+<p>
+    <textarea name="title" id="title" placeholder="想討論些甚麼呢?" required></textarea>
+
+</p>
+            </form>
+            <p><button onclick="Post.submit()">開話題</button></p>
+            <p class="msg" id="msg">&nbsp;</p>
+            </div>
+    </header> -->
+    <body onload="User.show()">
+        <div class="list">
+            <div class="container" id="postList">
+            </div>
+        </div>
+    </body>
+    <script>
+        const USER_ID = '<%= userId %>'
+        console.log(USER_ID)
+      </script>
+    <script>
+        const User = {}
+        let posts = [];
+        list = document.getElementById('postList');
+
+
+        User.all = async function () {
+            var res = await window.fetch("/api/users", {
+                method: "GET",
+                headers : { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+            })
+            res.ok ? posts = await res.json() : posts = {};
+            console.log(posts);
+        return posts;
+        }
+
+        User.show = async function (posts) {
+            posts = await User.all();
+            console.log(posts)
+            for (let i = 0; i < posts.length; i++) {
+                let card = document.createElement('div');
+                card.className = 'card';
+                let container = document.createElement('div');
+                container.className = 'container';
+                let img = document.createElement('img');
+                let info = document.createElement('h4');
+                let a = document.createElement('a');
+                let nickname = document.createElement('p');
+                info.appendChild(a);
+                card.appendChild(img);
+                card.appendChild(container);
+                container.appendChild(info);
+                container.appendChild(nickname);
+                a.innerHTML = `${posts[i].info}`
+                nickname.innerHTML =  `${posts[i].nickname}`
+                let ppath = posts[i].photo.split("\\")[1]
+                img.src = `upload/${ppath}.jpg`
+        
+                
+                // post.innerHTML = `${posts[i].nickname}: ${posts[i].info}`;
+                // btn.innerHTML = 'GO';
+                // btn.onclick = Chat.submit("", posts[i].uid, USER_ID)
+                a.target = "_blank";
+                // post.style = "";
+                a.href = `/connect/${posts[i].uid}/${USER_ID}`;
+                // btn.className = 'btn';
+                // list.appendChild(btn);
+                list.appendChild(card);
+            }
+        }
+
+    </script>
+<script>
+let btn = document.querySelector('.btn');
+btn.addEventListener("click",  console.log('go'));
+
+</script>
+
+<script>
+
+    const Chat = {};
+    
+    Chat.submit = async function (info, userA, userB) {
+      var title = document.getElementById("title").value;
+    //   var form = new FormData();
+    //   form.append("title", title)
+      var res = await window.fetch('api/chat', {
+            body: JSON.stringify({ info : "", userA: userA, userB: userB }),
+            method: 'post',
+            headers : { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+  })
+    //   console.log()
+  return(res.json())
+};
+
+
+
+    
+    </script>
+
+</html>
+
+
+

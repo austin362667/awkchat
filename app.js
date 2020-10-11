@@ -2,7 +2,8 @@ var express = require('express');
 var app = require('express')();
 var fs = require('fs');
 const { v4: uuidV4 } = require('uuid');
-
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 // var enforce = require('express-sslify');
 // const redis = require("redis");
 // const path = require("path");
@@ -42,24 +43,166 @@ var io = require('socket.io').listen(server);
 var bodyParser = require('body-parser')
 var jsonParser = bodyParser.json()
 
-const db = require('./queries')
+app.use(cookieParser());
+
+// initialize express-session to allow us track the logged-in user across sessions.
+app.use(session({
+    key: 'user_sid',
+    secret: 'somerandonstuffs',
+    resave: true,
+    saveUninitialized: false,
+    cookie: {
+        expires: 6000000
+    }
+}));
+
+const db = require('./queries');
+
+
+// This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
+// This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
+app.use((req, res, next) => {
+    if (req.cookies.user_sid && !req.session.user) {
+        res.clearCookie('user_sid');        
+    }
+    next();
+});
+
+// middleware function to check for logged-in users
+var sessionChecker = (req, res, next) => {
+  if (req.session.user && req.cookies.user_sid) {
+      // res.redirect('/avenue');
+      next();
+  } else {
+    next();
+  }    
+};
+
+
+// route for Home-Page
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
+});
+
+
+// route for user signup
+app.get('/signup', (req, res) => {
+      res.sendFile(__dirname + '/public/signup.html');
+  })
+// app.post('/signup', jsonParser, db.createUser)
+//  (req, res) => {
+      // User.create({
+      //     username: req.body.username,
+      //     email: req.body.email,
+      //     password: req.body.password
+      // })
+      // const r = db.createUser(req, res)
+      // console.log({r})
+      // .then(user => {
+          // req.session.user = r;
+          // res.redirect('/dashboard');
+      // })
+      // .catch(error => {
+      //     res.redirect('/signup');
+      // });
+  // });
+
+
+// route for user Login
+app.get('/login', (req, res) => {
+  res.sendFile(__dirname + '/public/double.html');
+})
+app.post('/login', jsonParser,  async (req, res) => {
+      var {email, password} = req.body;
+      const user = await db.getUserByEmailAndPassword(email, password);
+      console.log('dbUser: ', user);
+      if ( user.length === 1) {
+              req.session.user = user;
+              res.status(200).json({msg: 'success!'})
+          }else{
+            res.status(200).json({msg: 'failed..'})
+          }
+  });
+
+
+// route for user's dashboard
+app.get('/dashboard', (req, res) => {
+  if (req.session.user && req.cookies.user_sid) {
+    // console.log('sessionUser: ', req.session.user);
+    res.redirect('/avenue');
+      // res.sendFile(__dirname + '/public/dashboard.html');
+  } else {
+      res.redirect('/login');
+  }
+});
+
+app.get('/avenue', (req, res) => {
+  if (req.session.user && req.cookies.user_sid) {
+    // console.log('sessionUser: ', req.session.user);
+    res.render('avenue', { userId: req.session.user[0].uid })
+  } else {
+      // res.redirect('/login');
+  }
+});
+
+
+// route for user logout
+app.get('/logout', (req, res) => {
+  if (req.session.user && req.cookies.user_sid) {
+      res.clearCookie('user_sid');
+      res.redirect('/');
+  } else {
+      res.redirect('/login');
+  }
+});
+
+
+// route for handling 404 requests(unavailable routes)
+// app.use(function (req, res, next) {
+// res.status(404).send("Sorry can't find that!")
+// next();
+// });
+var multer  = require('multer')
+var upload = multer({ dest: 'upload/'});
+var file = upload.single('photo');
 
 app.get('/api/users', db.getUsers)
 app.get('/api/users/:id', db.getUserById)
-app.post('/api/user', db.createUser)
+app.post('/api/user', file , db.createUser)
 app.put('/api/users/:id', db.updateUser)
 app.delete('/api/users/:id', db.deleteUser)
 
-app.get('/api/posts', db.getPosts)
+app.get('/api/posts', jsonParser, db.getPosts)
 app.get('/api/posts/:id', db.getPostById)
 app.post('/api/post', jsonParser, db.createPost)
 app.put('/api/posts/:id', db.updatePost)
 app.delete('/api/posts/:id', db.deletePost)
 
+app.get('/api/chats', jsonParser, db.getChats)
+app.get('/api/chats/:id', db.getChatById)
+// app.post('/api/chat', jsonParser, db.createChat)
+app.put('/api/chats/:id', db.updateChat)
+app.delete('/api/chats/:id', db.deleteChat)
+
 app.get('/post/:room' , (req, res) => {
   // console.log('room id: ',req.params.room);
   res.render('room', { roomId: req.params.room })
 });
+
+
+app.get('/connect/:userA/:userB' , db.createChat)
+  // console.log('room id: ',req.params.room);
+
+app.get('/chat/:room' , (req, res) => {
+  if (req.session.user && req.cookies.user_sid) {
+    let user = req.session.user
+    console.log('sessionUser: ', user[0]);
+  // console.log('room id: ',req.params.room);
+  res.render('chat', { roomId: req.params.room, username: user[0].nickname })
+}
+
+});
+
 
 app.get('/api/messages/:id', db.getMessagesByPostId)
 app.post('/api/messages', jsonParser, db.createMessages)
@@ -75,7 +218,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname+'/public/index.html');
 });
 
-app.get('/chat', (req, res) => {
+app.get('/forum', (req, res) => {
   res.sendFile(__dirname+'/public/newsfeed.html');
 });
 
@@ -136,9 +279,9 @@ io.on('connection', socket => {
 })
 
 
-app.get('/room', (req, res) => {
-  return res.redirect('https://lattemall.company');
-});
+// app.get('/room', (req, res) => {
+//   return res.redirect('https://lattemall.company');
+// });
 
 app.get('/match', (req, res) => {
   res.sendFile(__dirname+'/public/room.html');
