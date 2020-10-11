@@ -276,7 +276,7 @@
             <input type="password" placeholder="密碼" id="password"/>
             <input type="text" placeholder="話題" id="info"/>
             <input type="file" name="photo" placeholder="個人相片" id="photo">
-			<button onclick="User.create()">註冊</button>
+			<button id="create">註冊</button>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
@@ -315,6 +315,7 @@ const signInButton = document.getElementById('signIn');
 const container = document.getElementById('container');
 
 const login = document.getElementById('login');
+const create = document.getElementById('create');
 
 signUpButton.addEventListener('click', () => {
 container.classList.add("right-panel-active");
@@ -326,6 +327,10 @@ container.classList.remove("right-panel-active");
 
 login.addEventListener('touchstart', function () {
     User.login();
+});
+
+create.addEventListener('touchstart', function () {
+    User.create();
 });
 </script>
 
