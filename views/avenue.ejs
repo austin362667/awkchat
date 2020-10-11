@@ -131,7 +131,7 @@ img {
                 container.appendChild(nickname);
                 a.innerHTML = `${posts[i].info}`
                 nickname.innerHTML =  `${posts[i].nickname}`
-                let ppath = posts[i].photo.split("\\")[1]
+                let ppath = posts[i].photo.split("/")[1]
                 img.src = `upload/${ppath}.jpg`
         
                 
