@@ -291,7 +291,7 @@
 			<input type="email" placeholder="電子信箱" id="inemail"/>
 			<input type="password" placeholder="密碼" id="inpassword"/>
 			<!-- <a href="#">Forgot your password?</a> -->
-			<button onclick="User.login()" >登入</button>
+			<button id="login" >登入</button>
 		</form>
 	</div>
 	<div class="overlay-container">
@@ -314,12 +314,18 @@
 const signInButton = document.getElementById('signIn');
 const container = document.getElementById('container');
 
+const login = document.getElementById('login');
+
 signUpButton.addEventListener('click', () => {
 container.classList.add("right-panel-active");
 });
 
 signInButton.addEventListener('click', () => {
 container.classList.remove("right-panel-active");
+});
+
+login.addEventListener('click', () => {
+    User.login();
 });
 </script>
 
