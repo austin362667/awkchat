@@ -300,7 +300,7 @@
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
-		<form>
+		<form action="/avenue">
 			<h1>登入</h1>
 			<!-- <div class="social-container">
 				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -361,7 +361,7 @@ if((nickname && email) && (password && info)){
 
             }
             ).then(response => {
-                response.ok?response.redirect(301, '/avenue'):response.redirect(301, '/login');
+                // response.ok?response.redirect(301, '/avenue'):response.redirect(301, '/login');
         // HTTP 301 response
     })
     .catch(function(err) {
