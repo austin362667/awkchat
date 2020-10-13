@@ -74,7 +74,7 @@ var sessionChecker = (req, res, next) => {
       // res.redirect('/avenue');
       next();
   } else {
-    next();
+    res.redirect('/login');
   }    
 };
 
@@ -137,7 +137,7 @@ app.get('/dashboard', (req, res) => {
   }
 });
 
-app.get('/avenue', (req, res) => {
+app.get('/avenue'. sessionChecker, (req, res) => {
   if (req.session.user && req.cookies.user_sid) {
     // console.log('sessionUser: ', req.session.user);
     res.render('avenue', { userId: req.session.user[0].uid })
