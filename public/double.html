@@ -354,7 +354,7 @@ if((nickname && email) && (password && info)){
             body: formData,//JSON.stringify({ nickname : nickname, email : email, password : password, info: "None" }, input.files[0]),
             method: 'POST',
             headers : { 
-                // 'Content-Type': 'multipart/form-data',
+                'Content-Type': 'multipart/form-data',
                 // 'Accept': 'multipart/form-data'
                 }
             })
@@ -384,7 +384,7 @@ if((nickname && email) && (password && info)){
             headers : 
             { 
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                // 'Accept': 'application/json'
                 }
             })
             // const { msg } = await res.json(); 
