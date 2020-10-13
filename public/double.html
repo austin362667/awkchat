@@ -335,8 +335,7 @@
 
 
 <script>
-    const User = {}
-    User.create = async function () {
+    create = async function () {
         var formData = new FormData();
         let photo = document.getElementById('photo');
         let nickname = document.getElementById('nickname').value;
@@ -373,7 +372,7 @@ if((nickname && email) && (password && info)){
 
 <script>
     // const User = {}
-    User.login = async function () {
+    login = async function () {
         let email = document.getElementById('inemail').value;
         let password = document.getElementById('inpassword').value;
         var res = await window.fetch("/login", {
@@ -412,11 +411,11 @@ container.classList.remove("right-panel-active");
 });
 
 login.addEventListener('touchstart', function () {
-    User.login();
+    login();
 });
 
 create.addEventListener('touchstart', function () {
-    User.create();
+    create();
 });
 </script>
     </body>
