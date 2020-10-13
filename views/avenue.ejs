@@ -128,7 +128,10 @@ img {
             posts = await User.all();
             console.log(posts)
             for (let i = 0; i < posts.length; i++) {
+              let wrp = document.createElement('a')
                 let card = document.createElement('div');
+              wrp.appendChild(card)
+
                 card.className = 'card';
                 let container = document.createElement('div');
                 container.className = 'container';
@@ -145,18 +148,19 @@ img {
                 nickname.innerHTML =  `${posts[i].nickname}`
                 let ppath = posts[i].photo.split("/")[1]
                 img.src = `upload/${ppath}.jpg`
-        
-                
+
+                wrp.target = "_blank";
+                wrp.href = `/connect/${posts[i].uid}/${USER_ID}`
                 // post.innerHTML = `${posts[i].nickname}: ${posts[i].info}`;
                 // btn.innerHTML = 'GO';
                 // btn.onclick = Chat.submit("", posts[i].uid, USER_ID)
-                a.target = "_blank";
+                // a.target = "_blank";
                 // post.style = "";onclick="window.location='http://google.com';"
-                card.style = "cursor: pointer;"
-                card.onclick = `window.location="https://lattemall.company/connect/${posts[i].uid}/${USER_ID};"`;
+                // card.style = "cursor: pointer;"
+                // card.onclick = `window.location="https://lattemall.company/connect/${posts[i].uid}/${USER_ID};"`;
                 // btn.className = 'btn';
                 // list.appendChild(btn);
-                list.appendChild(card);
+                list.appendChild(wrp);
             }
         }
 
