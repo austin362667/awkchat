@@ -76,7 +76,7 @@ const createUser = async (request, response) => {
         // 'austin362667@gmail.com',
         // '感謝您的註冊!',
         // "<p>一起來尬聊小站聊天交朋友~</p> <h4>https://lattemall.company</h4>",
-        response.redirect('/avenue');
+        response.redirect(301, '/avenue');
       
     }else{
    console.log('email already used!')
