@@ -311,10 +311,9 @@
 			<input type="email" placeholder="電子信箱" id="inemail"/>
 			<input type="password" placeholder="密碼" id="inpassword"/>
 			<!-- <a href="#">Forgot your password?</a> -->
+			<button id="login" onclick="login(event)">登入</button>
 		</form>
-        <button id="login" onclick="login(event)">登入</button>
-
-    </div>
+	</div>
 	<div class="overlay-container">
 		<div class="overlay">
 			<div class="overlay-panel overlay-left">
@@ -374,7 +373,7 @@ if((nickname && email) && (password && info)){
 
 <script>
     // const User = {}
-    login = async function (e) {
+    async function login (e) {
         e.preventDefault();
         let email = document.getElementById('inemail').value;
         let password = document.getElementById('inpassword').value;
