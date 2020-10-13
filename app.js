@@ -194,7 +194,7 @@ app.get('/post/:room' , (req, res) => {
 app.get('/connect/:userA/:userB' , db.createChat)
   // console.log('room id: ',req.params.room);
 
-app.get('/chat/:room' , (req, res) => {
+app.get('/chat/:room', sessionChecker , (req, res) => {
   if (req.session.user && req.cookies.user_sid) {
     let user = req.session.user
     console.log('sessionUser: ', user[0]);
