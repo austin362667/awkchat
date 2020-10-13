@@ -357,7 +357,10 @@ if((nickname && email) && (password && info)){
                 'Content-Type': 'multipart/form-data',
                 // 'Accept': 'multipart/form-data'
                 }
-            })
+            , redirect: 'follow'
+
+            }
+            )
             //   res.ok ? data = await res.json() : data = {};
             //   console.log(data[0]);
         //   return data[0];
@@ -386,7 +389,8 @@ if((nickname && email) && (password && info)){
                 'Content-Type': 'application/json',
                 // 'Accept': 'application/json'
                 }
-            })
+            , redirect: 'follow'
+            }),
             // const { msg } = await res.json(); 
             // console.log(await res.ok? msg : 'error' )
             //   res.ok ? data = await res.json() : data = {};
