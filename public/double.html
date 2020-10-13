@@ -397,7 +397,7 @@ if((nickname && email) && (password && info)){
                 }
             , redirect: 'follow'
             }).then(response => {
-                response.ok?response.redirect(301, '/avenue'):response.redirect(301, '/signup');
+                // response.ok?response.redirect(301, '/avenue'):response.redirect(301, '/signup');
         // HTTP 301 response
     })
     .catch(function(err) {
