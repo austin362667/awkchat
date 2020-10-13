@@ -335,8 +335,8 @@
 
 
 <script>
-    create = async function (e) {
-        e.preventDefault();
+    create = async function () {
+        // e.preventDefault();
         var formData = new FormData();
         let photo = document.getElementById('photo');
         let nickname = document.getElementById('nickname').value;
@@ -373,8 +373,8 @@ if((nickname && email) && (password && info)){
 
 <script>
     // const User = {}
-    async function login (e) {
-        e.preventDefault();
+    async function login () {
+        // e.preventDefault();
         let email = document.getElementById('inemail').value;
         let password = document.getElementById('inpassword').value;
         console.log(email, password)
@@ -413,14 +413,14 @@ signInButton.addEventListener('click', () => {
 container.classList.remove("right-panel-active");
 });
 
-loginBtn.addEventListener('click', function () {
-    preventDefault(event)
+loginBtn.addEventListener('click', (e) => {
+    e.preventDefault();
     console.log("login")
     login();
 });
 
-createBtn.addEventListener('click', function () {
-    preventDefault()
+createBtn.addEventListener('click', (e) => {
+    e.preventDefault();
     console.log("create")
 
     create(event);
