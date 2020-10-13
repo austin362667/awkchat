@@ -309,30 +309,7 @@
 		</div>
 	</div>
 </div>
-<script>
-    const signUpButton = document.getElementById('signUp');
-const signInButton = document.getElementById('signIn');
-const container = document.getElementById('container');
 
-const login = document.getElementById('login');
-const create = document.getElementById('create');
-
-signUpButton.addEventListener('click', () => {
-container.classList.add("right-panel-active");
-});
-
-signInButton.addEventListener('click', () => {
-container.classList.remove("right-panel-active");
-});
-
-login.addEventListener('touchstart', function () {
-    User.login();
-});
-
-create.addEventListener('touchstart', function () {
-    User.create();
-});
-</script>
 
 
 
@@ -394,6 +371,32 @@ if((nickname && email) && (password && info)){
         //   return data[0];
           }
           
+</script>
+
+
+<script>
+    const signUpButton = document.getElementById('signUp');
+const signInButton = document.getElementById('signIn');
+const container = document.getElementById('container');
+
+const login = document.getElementById('login');
+const create = document.getElementById('create');
+
+signUpButton.addEventListener('click', () => {
+container.classList.add("right-panel-active");
+});
+
+signInButton.addEventListener('click', () => {
+container.classList.remove("right-panel-active");
+});
+
+login.addEventListener('touchstart', function () {
+    User.login();
+});
+
+create.addEventListener('touchstart', function () {
+    User.create();
+});
 </script>
     </body>
 
