@@ -379,11 +379,11 @@ if((nickname && email) && (password && info)){
         var res = await window.fetch("/login", {
             body: JSON.stringify({ email : email, password : password}),
             method: 'POST',
-            // headers : 
-            // { 
-            //     'Content-Type': 'application/json',
-            //     'Accept': 'application/json'
-            //     }
+            headers : 
+            { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+                }
             })
             const { msg } = await res.json(); 
             console.log(await res.ok? msg : 'error' )
