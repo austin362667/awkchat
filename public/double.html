@@ -296,7 +296,7 @@
             <input type="password" placeholder="密碼" id="password"/>
             <input type="text" placeholder="話題" id="info"/>
             <input type="file" name="photo" placeholder="個人相片" id="photo">
-			<button id="create">註冊</button>
+			<button id="create" onclick="create(event)">註冊</button>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
@@ -311,7 +311,7 @@
 			<input type="email" placeholder="電子信箱" id="inemail"/>
 			<input type="password" placeholder="密碼" id="inpassword"/>
 			<!-- <a href="#">Forgot your password?</a> -->
-			<button id="login" >登入</button>
+			<button id="login" onclick="login(event)">登入</button>
 		</form>
 	</div>
 	<div class="overlay-container">
@@ -335,7 +335,8 @@
 
 
 <script>
-    create = async function () {
+    create = async function (event) {
+        event.preventDefault();
         var formData = new FormData();
         let photo = document.getElementById('photo');
         let nickname = document.getElementById('nickname').value;
@@ -372,7 +373,8 @@ if((nickname && email) && (password && info)){
 
 <script>
     // const User = {}
-    login = async function () {
+    login = async function (event) {
+        event.preventDefault();
         let email = document.getElementById('inemail').value;
         let password = document.getElementById('inpassword').value;
         console.log(email, password)
