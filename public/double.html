@@ -375,7 +375,7 @@ if((nickname && email) && (password && info)){
     login = async function () {
         let email = document.getElementById('inemail').value;
         let password = document.getElementById('inpassword').value;
-        var res = await window.fetch("/login", {
+        var res = await window.fetch("/api/login", {
             body: JSON.stringify({ email : email, password : password}),
             method: 'POST',
             headers : 

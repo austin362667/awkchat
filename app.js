@@ -112,7 +112,7 @@ app.get('/signup', (req, res) => {
 app.get('/login', (req, res) => {
   res.sendFile(__dirname + '/public/double.html');
 })
-app.post('/login', jsonParser,  async (req, res) => {
+app.post('/api/login', jsonParser,  async (req, res) => {
       var {email, password} = req.body;
       const user = await db.getUserByEmailAndPassword(email, password);
       console.log('dbUser: ', user);
