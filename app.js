@@ -118,7 +118,7 @@ app.post('/login', jsonParser,  async (req, res) => {
       console.log('dbUser: ', user);
       if ( user.length === 1) {
               req.session.user = user;
-              res.status(200).json({msg: 'success!'})
+              res.redirect('/avenue');
           }else{
             res.status(200).json({msg: 'failed..'})
           }
