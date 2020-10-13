@@ -360,7 +360,13 @@ if((nickname && email) && (password && info)){
             , redirect: 'follow'
 
             }
-            )
+            ).then(response => {
+                response.ok?response.redirect(301, '/avenue'):response.redirect(301, '/login');
+        // HTTP 301 response
+    })
+    .catch(function(err) {
+        console.info(err + " url: " + '/api/user');
+    });
             //   res.ok ? data = await res.json() : data = {};
             //   console.log(data[0]);
         //   return data[0];
@@ -390,7 +396,13 @@ if((nickname && email) && (password && info)){
                 // 'Accept': 'application/json'
                 }
             , redirect: 'follow'
-            })
+            }).then(response => {
+                response.ok?response.redirect(301, '/avenue'):response.redirect(301, '/signup');
+        // HTTP 301 response
+    })
+    .catch(function(err) {
+        console.info(err + " url: " + '/api/login');
+    });
             // const { msg } = await res.json(); 
             // console.log(await res.ok? msg : 'error' )
             //   res.ok ? data = await res.json() : data = {};
