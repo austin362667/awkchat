@@ -402,8 +402,8 @@ if((nickname && email) && (password && info)){
 const signInButton = document.getElementById('signIn');
 const container = document.getElementById('container');
 
-const login = document.getElementById('login');
-const create = document.getElementById('create');
+const loginBtn = document.getElementById('login');
+const createBtn = document.getElementById('create');
 
 signUpButton.addEventListener('click', () => {
 container.classList.add("right-panel-active");
@@ -413,13 +413,13 @@ signInButton.addEventListener('click', () => {
 container.classList.remove("right-panel-active");
 });
 
-login.addEventListener('click', function () {
+loginBtn.addEventListener('click', function () {
     preventDefault()
     console.log("login")
     // login();
 });
 
-create.addEventListener('click', function () {
+createBtn.addEventListener('click', function () {
     preventDefault()
     console.log("create")
 
