@@ -296,7 +296,7 @@
             <input type="password" placeholder="密碼" id="password"/>
             <input type="text" placeholder="話題" id="info"/>
             <input type="file" name="photo" placeholder="個人相片" id="photo">
-			<button id="create" onclick="create(event)">註冊</button>
+			<button id="create" >註冊</button>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
@@ -311,7 +311,7 @@
 			<input type="email" placeholder="電子信箱" id="inemail"/>
 			<input type="password" placeholder="密碼" id="inpassword"/>
 			<!-- <a href="#">Forgot your password?</a> -->
-			<button id="login" onclick="login(event)">登入</button>
+			<button id="login" >登入</button>
 		</form>
 	</div>
 	<div class="overlay-container">
@@ -414,16 +414,16 @@ container.classList.remove("right-panel-active");
 });
 
 loginBtn.addEventListener('click', function () {
-    preventDefault()
+    preventDefault(event)
     console.log("login")
-    // login();
+    login();
 });
 
 createBtn.addEventListener('click', function () {
     preventDefault()
     console.log("create")
 
-    // create();
+    create(event);
 });
 </script>
     </body>
