@@ -361,6 +361,7 @@ if((nickname && email) && (password && info)){
 
             }
             ).then(response => {
+                location.href = response.ok?"https://lattema.company/avenue":"https://lattema.company/login";
                 // response.ok?response.redirect(301, '/avenue'):response.redirect(301, '/login');
         // HTTP 301 response
     })
@@ -397,7 +398,7 @@ if((nickname && email) && (password && info)){
                 }
             , redirect: 'follow'
             }).then(response => {
-                location.href = response.ok?"https://lattema.company/avenue":"https://lattema.company/signup";
+                location.href = response.ok?"https://lattema.company/avenue":"https://lattema.company/login";
                 // response.ok?response.redirect(301, '/avenue'):response.redirect(301, '/signup');
         // HTTP 301 response
     })
