@@ -208,12 +208,12 @@ app.get('/chat/:room', sessionChecker , (req, res) => {
 app.get('/api/messages/:id', db.getMessagesByPostId)
 app.post('/api/messages', jsonParser, db.createMessages)
 
-app.use(function(req, res, next) {
-  if(!req.secure) {
-    return res.redirect(['https://', req.get('Host'), req.url].join(''));
-  }
-  next();
-});
+// app.use(function(req, res, next) {
+//   if(!req.secure) {
+//     return res.redirect(['https://', req.get('Host'), req.url].join(''));
+//   }
+//   next();
+// });
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname+'/public/index.html');
