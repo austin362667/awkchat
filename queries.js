@@ -187,7 +187,6 @@ const getMessagesByPostId = (request, response) => {
     response.status(200).json(results.rows)
   })
 }
-
 const createMessages = (request, response) => {
   // console.log(request.body)
   const { pid, user, content } = request.body
