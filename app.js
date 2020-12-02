@@ -20,20 +20,20 @@ var loopLimit = 0;
 // room = 0;
 // match = [];
 
-// var options = {
-//   key: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/privkey.pem'),
-//   ca: [fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')],
-//   cert: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')
-// };
-// var https = require('https')
-// const server = https.createServer(options,app).listen(443, () => {
-//   console.log('listening on *:443');
-// });;
+var options = {
+  key: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/privkey.pem'),
+  ca: [fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')],
+  cert: fs.readFileSync('/etc/letsencrypt/live/lattemall.company/fullchain.pem')
+};
+var https = require('https')
+const server = https.createServer(options,app).listen(443, () => {
+  console.log('listening on *:443');
+});;
 
-var http = require('http')
-const server = http.createServer(app).listen(443, () => {
-    console.log('listening on *:443');
-  });
+// var http = require('http')
+// const server = http.createServer(app).listen(443, () => {
+//     console.log('listening on *:443');
+//   });
 
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
