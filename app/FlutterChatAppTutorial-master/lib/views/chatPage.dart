@@ -25,7 +25,7 @@ class _ChatPageState extends State<ChatPage> {
     scrollController = ScrollController();
     //Creating the socket
     socketIO = SocketIOManager().createSocketIO(
-      'https://lattemall.company',
+      'http://66.228.52.222:3000/',
       '/',
     );
     //Call init before doing anything with socket

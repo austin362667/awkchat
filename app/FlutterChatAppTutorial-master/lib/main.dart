@@ -48,7 +48,9 @@ class _MyAppState extends State<MyApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: userIsLoggedIn != null
-          ? userIsLoggedIn ? ChatPage() : Authenticate()
+          ? userIsLoggedIn
+              ? ChatPage()
+              : Authenticate()
           : Container(
               child: Center(
                 child: Authenticate(),
